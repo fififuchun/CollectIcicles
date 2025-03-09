@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Icicle : MonoBehaviour
 {
-    public int iciclePoint;
+    // public int iciclePoint;
     void Start()
     {
 
@@ -13,8 +13,10 @@ public class Icicle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.localPosition.y < -400)
+        if (transform.position.y < 600)
         {
+            Debug.Log($"Reset: {transform.parent.name.Split("_")[1]}");
+            GrowManager.growGrades[int.Parse(transform.parent.name.Split("_")[1])] = 0;
             Destroy(gameObject);
         }
     }
