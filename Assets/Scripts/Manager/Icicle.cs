@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Icicle : MonoBehaviour
 {
-    // public int iciclePoint;
+    public int point; // 生える位置
+    public int id; // つららのID
+    public int growGrade; // 成長段階
+
     void Start()
     {
 

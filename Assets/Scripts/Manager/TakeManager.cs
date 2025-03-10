@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class TakeManager : MonoBehaviour
 {
@@ -16,7 +15,7 @@ public class TakeManager : MonoBehaviour
 
     void Update()
     {
-        Vector2 mousePosition = Input.mousePosition;
+        // Vector2 mousePosition = Input.mousePosition;
 
         // マウスボタン押下（タップ開始）
         if (Input.GetMouseButtonDown(0))
@@ -29,11 +28,11 @@ public class TakeManager : MonoBehaviour
         // マウス移動中（ドラッグ）
         if (Input.GetMouseButton(0) && isHolding)
         {
-            if (RectTransformUtility.RectangleContainsScreenPoint(imageRect, mousePosition))
+            if (RectTransformUtility.RectangleContainsScreenPoint(imageRect, Input.mousePosition))
             {
                 // hasPassedThrough = true;
-                transform.parent.GetComponent<Rigidbody2D>().gravityScale = 8;
                 // Debug.Log($"topped {transform.parent.parent.name}");
+                transform.parent.GetComponent<Rigidbody2D>().gravityScale = 8;
                 enabled = false;
             }
         }

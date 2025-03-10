@@ -17,9 +17,23 @@ MonoBehaviour:
     id: 002
     icicleName: "\u3064\u3089\u3089"
     iciclePoint: 3
+    rareGrade: 0
+    eyeId: 0
+    eye_y: 0
     requiredUnlock: 00000000
   - index: 1
     id: 006
     icicleName: "\u3055\u304F\u3089\u3064\u3089\u3089"
     iciclePoint: 15
+    rareGrade: 0
+    eyeId: 0
+    eye_y: 0
+    requiredUnlock: 
+  - index: 2
+    id: 006
+    icicleName: "\u3055\u304F\u3089\u3064\u3089\u3089"
+    iciclePoint: 15
+    rareGrade: 0
+    eyeId: 0
+    eye_y: 0
     requiredUnlock: 
