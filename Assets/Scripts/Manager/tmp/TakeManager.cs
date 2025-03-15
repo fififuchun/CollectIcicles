@@ -32,7 +32,8 @@ public class TakeManager : MonoBehaviour
             {
                 // hasPassedThrough = true;
                 // Debug.Log($"topped {transform.parent.parent.name}");
-                transform.parent.GetComponent<Rigidbody2D>().gravityScale = 8;
+                Transform _parent = transform.parent;
+                _parent.GetComponent<Rigidbody2D>().gravityScale = 8;
                 enabled = false;
             }
         }

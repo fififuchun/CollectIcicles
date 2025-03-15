@@ -23,7 +23,13 @@ public class IcicleManager : MonoBehaviour
 
     void Update()
     {
-
+        // 3/16 ここから　画面外の場合はdestroyするのはmanagerの責務
+        if (transform.position.y < 600)
+        {
+            Debug.Log($"Reset: {transform.parent.name.Split("_")[1]}");
+            // GrowManager.growGrades[int.Parse(transform.parent.name.Split("_")[1])] = 0;
+            Destroy(gameObject);
+        }
     }
 
     // Buttonにアタッチ
@@ -34,8 +40,6 @@ public class IcicleManager : MonoBehaviour
 
         int growPoint = canGrowPoints[UnityEngine.Random.Range(0, canGrowPoints.Count)];
         Grow(growPoint);
-        // icicles[growPoint].growGrade++;
-        // growPoints[growPoint].//.GetComponent<Icicle>().GrowIcicle();
     }
 
     // つららを成長させる
