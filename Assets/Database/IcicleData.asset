@@ -14,23 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icicles:
   - index: 0
+    id: 000
+    icicleName: "\u5C0F\u3064\u3089\u3089"
+    iciclePoint: 0
+    rareGrade: 1
+    eyeId: 0
+    eye_y: 120
+    requiredUnlock: 
+  - index: 1
+    id: 001
+    icicleName: "\u4E2D\u3064\u3089\u3089"
+    iciclePoint: 1
+    rareGrade: 1
+    eyeId: 0
+    eye_y: 110
+    requiredUnlock: 
+  - index: 2
     id: 002
     icicleName: "\u3064\u3089\u3089"
     iciclePoint: 3
-    rareGrade: 0
+    rareGrade: 1
     eyeId: 0
-    eye_y: 0
-    requiredUnlock: 00000000
-  - index: 1
-    id: 006
-    icicleName: "\u3055\u304F\u3089\u3064\u3089\u3089"
-    iciclePoint: 15
-    rareGrade: 0
-    eyeId: 0
-    eye_y: 0
+    eye_y: 100
     requiredUnlock: 
-  - index: 2
-    id: 006
+  - index: 3
+    id: 003
     icicleName: "\u3055\u304F\u3089\u3064\u3089\u3089"
     iciclePoint: 15
     rareGrade: 0

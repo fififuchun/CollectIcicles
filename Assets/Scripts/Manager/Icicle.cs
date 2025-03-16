@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Icicle : MonoBehaviour
 {
-    // IcicleManagerのインスタンス
-    private IcicleManager icicleManager;
-
     public int point; // 生える位置
     public int id; // つららのID
     public int growGrade; // 成長段階
+
+    public UnityEvent<int> OnGet; // 獲得時のイベント
 
     private bool isHolding = false;  // 長押し中か
     private RectTransform imageRect;  // Image の範囲情報
@@ -37,7 +37,8 @@ public class Icicle : MonoBehaviour
             if (RectTransformUtility.RectangleContainsScreenPoint(imageRect, Input.mousePosition))
             {
                 GetComponent<Rigidbody2D>().gravityScale = 8;
-                // enabled = false;
+                OnGet.Invoke(point);
+                enabled = false;
             }
         }
 
