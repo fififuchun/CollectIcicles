@@ -6,8 +6,8 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "IcicleData", menuName = "Create IcicleData")]
-public class IcicleData : ScriptableObject
+[CreateAssetMenu(fileName = "IcicleSO", menuName = "Create IcicleSO")]
+public class IcicleSO : ScriptableObject
 {
     public List<Icicles> icicles;
 
@@ -39,14 +39,14 @@ public class Icicles
 
 #if UNITY_EDITOR
 [CanEditMultipleObjects]
-[CustomEditor(typeof(IcicleData), true)]
-public class IcicleDataEditor : Editor
+[CustomEditor(typeof(IcicleSO), true)]
+public class IcicleSOEditor : Editor
 {
-    public IcicleData icicleData;
+    public IcicleSO icicleSO;
 
     private void OnEnable()
     {
-        icicleData = target as IcicleData;
+        icicleSO = target as IcicleSO;
     }
 
     public override void OnInspectorGUI()

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class IcicleManager : MonoBehaviour
 {
-    [SerializeField] private DataManager dataManager;
-    [SerializeField] private IcicleData icicleData;
+    [SerializeField] private DataSaver dataSaver;
+    [SerializeField] private IcicleSO icicleData;
     [SerializeField] private Icicle[] icicles = new Icicle[Const.maxIcicle];
 
 
@@ -28,7 +28,7 @@ public class IcicleManager : MonoBehaviour
             else if (icicles[i].transform.position.y < 600)
             {
                 Debug.Log($"Reset: {i}");
-                dataManager.GetCoin(icicleData.icicles[icicles[i].id].iciclePoint);
+                dataSaver.GetCoin(icicleData.icicles[icicles[i].id].iciclePoint);
                 Destroy(icicles[i].gameObject);
                 icicles[i] = null;
                 growGrades = GrowGrades();

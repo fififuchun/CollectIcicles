@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using TMPro;
 
-public class DataManager : MonoBehaviour
+public class DataSaver : MonoBehaviour
 {
     // json変換するデータのクラス
     [HideInInspector] public SaveData data;
@@ -107,16 +106,4 @@ public class DataManager : MonoBehaviour
     {
         t_coinText.text = TCoin.ToString();
     }
-
-    //update mission
-    // public UnityEvent updateMissions = new UnityEvent();
-    // public void ChangeMissionValue(int i, float changedValue)
-    // {
-    //     data.missionValues[i] = (int)changedValue;
-    //     Debug.Log($"missionDataの{i}番目を{changedValue}に変更しました");
-
-    //     Save(data);
-
-    //     updateMissions?.Invoke();
-    // }
 }
