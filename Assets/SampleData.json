@@ -1,0 +1,72 @@
+{
+    "icicles": [
+        {
+            "index": 0,
+            "id": "000",
+            "icicleName": "小つらら",
+            "iciclePoint": 0,
+            "rareGrade": 1,
+            "eyeId": 0,
+            "eye_y": 120,
+            "requiredUnlock": []
+        },
+        {
+            "index": 1,
+            "id": "001",
+            "icicleName": "中つらら",
+            "iciclePoint": 1,
+            "rareGrade": 1,
+            "eyeId": 0,
+            "eye_y": 110,
+            "requiredUnlock": []
+        },
+        {
+            "index": 2,
+            "id": "002",
+            "icicleName": "つらら",
+            "iciclePoint": 3,
+            "rareGrade": 1,
+            "eyeId": 0,
+            "eye_y": 100,
+            "requiredUnlock": [
+                1
+            ]
+        },
+        {
+            "index": 3,
+            "id": "003",
+            "icicleName": "でかつらら",
+            "iciclePoint": 15,
+            "rareGrade": 0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "requiredUnlock": [
+                2
+            ]
+        },
+        {
+            "index": 4,
+            "id": "004",
+            "icicleName": "岩つらら",
+            "iciclePoint": 15,
+            "rareGrade": 0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "requiredUnlock": [
+                2
+            ]
+        },
+        {
+            "index": 5,
+            "id": "005",
+            "icicleName": "ベテランつらら",
+            "iciclePoint": 20,
+            "rareGrade": 0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "requiredUnlock": [
+                2
+            ]
+        }
+    ]
+}

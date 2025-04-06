@@ -198,6 +198,9 @@ MonoBehaviour:
   point: 0
   id: 0
   growGrade: 0
+  OnGet:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2159211757510862544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,7 +629,6 @@ GameObject:
   - component: {fileID: 4271574498099748318}
   - component: {fileID: 7393044845560901197}
   - component: {fileID: 8215642979426850033}
-  - component: {fileID: 4820715952969945929}
   m_Layer: 5
   m_Name: TouchPanel
   m_TagString: Untagged
@@ -691,18 +693,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4820715952969945929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5579028552596713029}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70651bfad9953416cba76217f0c5d91e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8537711799104212945
 GameObject:
   m_ObjectHideFlags: 0
