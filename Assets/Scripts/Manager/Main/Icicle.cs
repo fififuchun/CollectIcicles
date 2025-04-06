@@ -9,7 +9,7 @@ public class Icicle : MonoBehaviour
     public int id; // つららのID
     public int growGrade; // 成長段階
 
-    public UnityEvent<int> OnGet; // 獲得時のイベント
+    [HideInInspector] public UnityEvent<int> OnGet; // 獲得時のイベント
 
     private bool isHolding = false;  // 長押し中か
     private RectTransform imageRect;  // Image の範囲情報

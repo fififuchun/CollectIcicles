@@ -28,14 +28,18 @@ public class IcicleSO : ScriptableObject
 [System.Serializable]
 public class Icicles
 {
+    public string icicleName; // つららの名前
     public int index; // つららのindex
     public string id; // つららのID
-    public string icicleName; // つららの名前
     public int iciclePoint; // つららのポイント
     public int rareGrade; // つららのレア度
 
+
+    public float scale_x; // つららのスケール
+    public float scale_y; // つららのスケール
     public int eyeId; // つららの目のID
     public int eye_y; // つららの目の位置
+
     public int[] requiredUnlock; // つららをアンロックするために必要なナンバー
 }
 
@@ -87,7 +91,7 @@ public class IcicleSOEditor : Editor
 {
     public IcicleSO icicleSO;
 
-    string m_dataPath = "SampleData.json";
+    string m_dataPath = "IcicleData.json";
 
     private void OnEnable()
     {
