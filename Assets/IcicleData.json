@@ -10,6 +10,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 120,
+            "image": {
+                "instanceID": 35030
+            },
             "requiredUnlock": []
         },
         {
@@ -22,6 +25,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 110,
+            "image": {
+                "instanceID": 35034
+            },
             "requiredUnlock": []
         },
         {
@@ -34,6 +40,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 100,
+            "image": {
+                "instanceID": 35038
+            },
             "requiredUnlock": [
                 1
             ]
@@ -48,6 +57,9 @@
             "scale_y": 1.2000000476837159,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35042
+            },
             "requiredUnlock": [
                 2
             ]
@@ -62,6 +74,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35054
+            },
             "requiredUnlock": [
                 3
             ]
@@ -76,6 +91,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35062
+            },
             "requiredUnlock": [
                 4
             ]
@@ -90,6 +108,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35074
+            },
             "requiredUnlock": [
                 5
             ]
@@ -104,6 +125,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35046
+            },
             "requiredUnlock": [
                 2
             ]
@@ -118,6 +142,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35050
+            },
             "requiredUnlock": [
                 2
             ]
@@ -132,6 +159,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35150
+            },
             "requiredUnlock": [
                 6,
                 7
@@ -147,6 +177,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 0
+            },
             "requiredUnlock": [
                 7
             ]
@@ -161,6 +194,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35058
+            },
             "requiredUnlock": [
                 8
             ]
@@ -175,6 +211,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35082
+            },
             "requiredUnlock": [
                 9,
                 10
@@ -190,6 +229,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35066
+            },
             "requiredUnlock": [
                 10
             ]
@@ -204,6 +246,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 35070
+            },
             "requiredUnlock": [
                 11
             ]
@@ -218,6 +263,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 0
+            },
             "requiredUnlock": [
                 13,
                 14
@@ -233,6 +281,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 0
+            },
             "requiredUnlock": [
                 14
             ]
@@ -247,6 +298,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 0
+            },
             "requiredUnlock": [
                 15
             ]
@@ -261,6 +315,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 0
+            },
             "requiredUnlock": [
                 16
             ]
@@ -275,6 +332,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 0
+            },
             "requiredUnlock": [
                 17
             ]
@@ -289,6 +349,9 @@
             "scale_y": 1.0,
             "eyeId": 0,
             "eye_y": 0,
+            "image": {
+                "instanceID": 0
+            },
             "requiredUnlock": [
                 18
             ]

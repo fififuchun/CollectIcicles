@@ -37,6 +37,12 @@ public class IcicleCellCreator : MonoBehaviour
         for (int i = 0; i < 20; i++)
         {
             cellPrefabs[i].transform.localPosition = new Vector3(cellPrefabs[i].transform.localPosition.x, -i * 500, 0);
+            icicleNames[i].text = icicleSO.icicles[i].icicleName;
+
+            Sprite icicleSprite = icicleSO.icicles[i].image;
+            if (icicleSprite != null) images[i].sprite = icicleSprite;
+
+            coinTexts[i].text = icicleSO.icicles[i].iciclePoint.ToString();
         }
     }
 

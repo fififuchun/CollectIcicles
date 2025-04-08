@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System;
 using System.IO;
 using UnityEngine;
+// using Shapes2D;
+using UnityEngine.UI;
+
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -34,11 +38,12 @@ public class Icicles
     public int iciclePoint; // つららのポイント
     public int rareGrade; // つららのレア度
 
-
     public float scale_x; // つららのスケール
     public float scale_y; // つららのスケール
     public int eyeId; // つららの目のID
     public int eye_y; // つららの目の位置
+
+    public Sprite image; // つららの画像
 
     public int[] requiredUnlock; // つららをアンロックするために必要なナンバー
 }
@@ -47,8 +52,8 @@ public class Icicles
 // SOとJsonの変換を行うクラス
 public class ConvertIcicleSO : MonoBehaviour
 {
-    [SerializeField] internal string m_dataPath = "SampleData.json";
-    [SerializeField] IcicleSO icicleSO;
+    // [SerializeField] internal string m_dataPath = "SampleData.json";
+    // [SerializeField] IcicleSO icicleSO;
 
     public static string GetFullPath(string _dataPath)
     {
