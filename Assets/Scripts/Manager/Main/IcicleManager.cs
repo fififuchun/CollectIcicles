@@ -8,12 +8,12 @@ public class IcicleManager : MonoBehaviour
 {
     [SerializeField] private DataSaver dataSaver;
     [SerializeField] private IcicleSO icicleData;
-    [SerializeField] private Icicle[] icicles = new Icicle[Const.maxIcicle];
+    [SerializeField] private Icicle[] icicles = new Icicle[Const.maxIcicleCount];
 
 
     // 成長するつららの位置、ここでアタッチされたGameObjectの子オブジェクトとしてつららが生成される
-    [SerializeField] private GameObject[] growPoints = new GameObject[Const.maxIcicle];
-    [SerializeField] private int[] growGrades = new int[Const.maxIcicle];
+    [SerializeField] private GameObject[] growPoints = new GameObject[Const.maxIcicleCount];
+    [SerializeField] private int[] growGrades = new int[Const.maxIcicleCount];
 
 
     [SerializeField] private GameObject babyIcicle;
@@ -50,7 +50,7 @@ public class IcicleManager : MonoBehaviour
     {
         // 成長可能なつららの場所のindexのリスト
         List<int> canGrowPoints = new List<int>();
-        for (int i = 0; i < Const.maxIcicle; i++)
+        for (int i = 0; i < Const.maxIcicleCount; i++)
         {
             if (icicles[i] == null) canGrowPoints.Add(i);
             else if (icicles[i].growGrade < Const.maxGrowGrade) canGrowPoints.Add(i);
