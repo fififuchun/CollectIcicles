@@ -5,6 +5,9 @@ Shader "Unlit/Outline"
         _MainTex ("Texture", 2D) = "white" {}
         _OutlineColor ("Outline Color", Color) = (1,1,1,1)
         _OutlineWidth ("Outline Width", Range(0, 4)) = 1
+
+        _FillColor ("Fill Color", Color) = (1,1,1,1)
+
     }
     SubShader
     {
@@ -22,7 +25,9 @@ Shader "Unlit/Outline"
  
         fixed4 _OutlineColor;
         float _OutlineWidth;
- 
+
+        fixed4 _FillColor;
+
         struct v2fOutline
         {
             float4 pos : SV_POSITION;

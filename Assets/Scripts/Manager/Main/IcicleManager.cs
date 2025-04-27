@@ -139,5 +139,8 @@ public class IcicleManager : MonoBehaviour
         Transform eyeTransform = icicles[growPoint].transform.GetChild(2);
         eyeTransform.gameObject.SetActive(true);
         eyeTransform.localPosition = eyePos(icicles[growPoint].id);
+
+        // 図鑑に登録されてない場合は登録する処理
+
     }
 }
