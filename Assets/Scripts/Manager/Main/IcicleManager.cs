@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class IcicleManager : MonoBehaviour
 {
     [SerializeField] private DataSaver dataSaver;
-    [SerializeField] private IcicleSO icicleData;
+    [SerializeField] private IcicleSO icicleSO;
     [SerializeField] private Icicle[] icicles = new Icicle[Const.maxIcicleCount];
 
 
@@ -15,10 +15,12 @@ public class IcicleManager : MonoBehaviour
     [SerializeField] private GameObject[] growPoints = new GameObject[Const.maxIcicleCount];
     [SerializeField] private int[] growGrades = new int[Const.maxIcicleCount];
 
-
+    // 小つららのPrefab
     [SerializeField] private GameObject babyIcicle;
-    [SerializeField] private Sprite midIcicle; // 中つららの画像
-    [SerializeField] private Sprite normalIcicle; // つららの画像
+    [SerializeField] private GameObject[] eyeObjects;
+
+    // 落下中の目の画像
+    [SerializeField] private Sprite dropEye;
 
     void Update()
     {
@@ -28,7 +30,7 @@ public class IcicleManager : MonoBehaviour
             else if (icicles[i].transform.position.y < 600)
             {
                 Debug.Log($"Reset: {i}");
-                dataSaver.GetCoin(icicleData.icicles[icicles[i].id].iciclePoint);
+                dataSaver.GetCoin(icicleSO.icicles[icicles[i].id].iciclePoint);
                 Destroy(icicles[i].gameObject);
                 icicles[i] = null;
                 growGrades = GrowGrades();
@@ -41,7 +43,7 @@ public class IcicleManager : MonoBehaviour
         List<int> canGrowPoints = CanGrowPoint();
         if (canGrowPoints.Count == 0) return;
 
-        int growPoint = canGrowPoints[UnityEngine.Random.Range(0, canGrowPoints.Count)];
+        int growPoint = canGrowPoints[Random.Range(0, canGrowPoints.Count)];
         Grow(growPoint);
     }
 
@@ -78,14 +80,14 @@ public class IcicleManager : MonoBehaviour
         }
         else // 初生成ならオブジェクトを生成
         {
-            GameObject _babyIcicle = Instantiate(babyIcicle, growPoints[growPoint].transform.position, Quaternion.identity);
-            _babyIcicle.transform.SetParent(growPoints[growPoint].transform);
-            _babyIcicle.transform.localPosition = new Vector3(0, -140, 0);
+            GameObject _babyIcicle = Instantiate(babyIcicle, growPoints[growPoint].transform);
+            _babyIcicle.transform.localPosition = new Vector3(0, 10, 0);
 
             icicles[growPoint] = _babyIcicle.GetComponent<Icicle>();
-            icicles[growPoint].OnGet.AddListener(growPoint => ChangeEye(growPoint));
             icicles[growPoint].point = growPoint;
             icicles[growPoint].id = 0;
+            // icicles[growPoint].icicleSO = icicleSO;
+            // icicles[growPoint].dropEye = dropEye;
         }
 
         // 成長レベルを上げる
@@ -99,19 +101,17 @@ public class IcicleManager : MonoBehaviour
                 // Debug.Log("ちびつららを生成しました");
                 break;
             case 2:
-                // 中つららを生成
-                icicles[growPoint].id = 1;
-                icicles[growPoint].GetComponent<Image>().sprite = midIcicle;
-                // 目の位置を調整
-                icicles[growPoint].transform.GetChild(1).localPosition = eyePos(icicles[growPoint].id);
-                // icicles[growPoint].transform.GetChild(2).localPosition = new Vector3(0, 110, 0);
+                icicles[growPoint].GenerateIcicle(1);
                 break;
             case 3:
-                // ノーマルつららを生成
-                icicles[growPoint].id = 2;
-                icicles[growPoint].GetComponent<Image>().sprite = normalIcicle;
-                icicles[growPoint].transform.GetChild(1).localPosition = eyePos(icicles[growPoint].id);
-                // icicles[growPoint].transform.GetChild(2).localPosition = new Vector3(0, 100, 0);
+                if (Random.Range(0, 2) == 0) // レアつらら生成時の処理
+                {
+                    int rareId = 5;
+                    icicles[growPoint].eyeObj = eyeObjects[icicleSO.icicles[rareId].eyeId];
+                    icicles[growPoint].GenerateIcicle(rareId);
+                }
+                else icicles[growPoint].GenerateIcicle(2);
+
                 break;
             default:
                 Debug.LogError("Invalid grow grade: inside switch");
@@ -119,28 +119,6 @@ public class IcicleManager : MonoBehaviour
         }
     }
 
-    private Vector3 eyePos(int id)
-    {
-        return new Vector3(0, icicleData.icicles[id].eye_y, 0);
-    }
-
-    public int[] GrowGrades()
-    {
-        return icicles?.Select(icicle => icicle?.growGrade ?? 0).ToArray() ?? new int[0];
-    }
-
-    public void ChangeEye(int growPoint)
-    {
-        if (icicles[growPoint] == null) return;
-
-        Debug.Log($"Get Icicle in: {growPoint}");
-        icicles[growPoint].transform.GetChild(1).gameObject.SetActive(false);
-
-        Transform eyeTransform = icicles[growPoint].transform.GetChild(2);
-        eyeTransform.gameObject.SetActive(true);
-        eyeTransform.localPosition = eyePos(icicles[growPoint].id);
-
-        // 図鑑に登録されてない場合は登録する処理
-
-    }
+    // つららの成長具合を長さ20のint配列で返す
+    public int[] GrowGrades() { return icicles?.Select(icicle => icicle?.growGrade ?? 0).ToArray() ?? new int[0]; }
 }

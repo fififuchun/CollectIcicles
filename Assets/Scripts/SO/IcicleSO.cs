@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System;
 using System.IO;
 using UnityEngine;
-// using Shapes2D;
-using UnityEngine.UI;
-
-
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -32,17 +28,21 @@ public class IcicleSO : ScriptableObject
 [System.Serializable]
 public class Icicles
 {
+    [Header("基本情報")]
     public string icicleName; // つららの名前
     public int index; // つららのindex
     public string id; // つららのID
+    // [SerializeField] internal string id; // つららのID
     public int iciclePoint; // つららのポイント
     public int rareGrade; // つららのレア度
 
+    [Header("生成時に必要な情報")]
     public float scale_x; // つららのスケール
     public float scale_y; // つららのスケール
     public int eyeId; // つららの目のID
     public int eye_y; // つららの目の位置
 
+    [Header("その他情報")]
     public Sprite image; // つららの画像
 
     public int[] requiredUnlock; // つららをアンロックするために必要なナンバー
