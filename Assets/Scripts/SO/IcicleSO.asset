@@ -97,8 +97,8 @@ MonoBehaviour:
     rareGrade: 1
     scale_x: 1
     scale_y: 1
-    eyeId: 0
-    eye_y: 0
+    eyeId: 4
+    eye_y: -50
     image: {fileID: 21300000, guid: 4dcd5b4849da74d1cbc02fe8e3509f18, type: 3}
     requiredUnlock: 02000000
   - icicleName: "\u30D9\u30C6\u30E9\u30F3\u3064\u3089\u3089"

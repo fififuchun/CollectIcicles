@@ -4,11 +4,14 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using FuchunLibrary;
+using System;
+using Unity.VisualScripting;
 
 public class DataSaver : MonoBehaviour
 {
     // json変換するデータのクラス
-    [HideInInspector] public SaveData data;
+    [HideInInspector] public static SaveData data;
 
     // jsonファイルのパス
     string filepath;
@@ -16,7 +19,9 @@ public class DataSaver : MonoBehaviour
     // jsonファイル名
     string fileName = "Data.json";
 
-    //-------------------------------------------------------------------
+    //--------------------------------------------------------------------------------
+
+    #region "Essentials"
     // 開始時にファイルチェック、読み込み
     void Awake()
     {
@@ -33,18 +38,24 @@ public class DataSaver : MonoBehaviour
 #endif
 
         // ファイルがないとき、ファイル作成
-        if (!File.Exists(filepath)) Save(data);
+        if (!File.Exists(filepath)) Save();
 
         // ファイルを読み込んでdataに格納
         data = Load(filepath);
 
-        // データを初期化
-        InitData();
+        // データを基に数値を初期化
+        InitAppearance();
+
+        // Debug.Log($"freezerIndex: {Const.freezerIndex.Length}");
+        // Debug.Log($"map: {Const.map.Length}");
+        // Debug.Log($"max freezer count: {Const.maxfreezerCount}");
+
+        unlockedIcicles2D = Library.ConvertDimOneToTwo(data.isUnlockedIcicles, Const.maxfreezerCount, Const.maxIcicleTypePerBook);
+        Library.Print2DBoolArray(unlockedIcicles2D);
     }
 
-
     // jsonとしてデータを保存
-    public void Save(SaveData data)
+    private void Save(SaveData data)
     {
         // jsonとして変換
         string json = JsonUtility.ToJson(data, true);
@@ -62,7 +73,7 @@ public class DataSaver : MonoBehaviour
     public void Save() { Save(data); }
 
     // jsonファイル読み込み
-    SaveData Load(string path)
+    private SaveData Load(string path)
     {
         // ファイル読み込み指定
         StreamReader rd = new StreamReader(path);
@@ -80,16 +91,20 @@ public class DataSaver : MonoBehaviour
     // ゲーム終了時に保存
     void OnDestroy()
     {
-        Save(data);
+        Save();
     }
 
-    //-------------------------------------------------------------------
+    #endregion
 
+    //--------------------------------------------------------------------------------
+    #region "Coin"
+
+    // コインのテキスト
     [SerializeField] private TextMeshProUGUI t_coinText;
 
 
-
-    private void InitData()
+    // ゲーム内数値の見た目を初期化する
+    private void InitAppearance()
     {
         UpdateCoin();
     }
@@ -106,4 +121,26 @@ public class DataSaver : MonoBehaviour
     {
         t_coinText.text = TCoin.ToString();
     }
+
+    #endregion
+
+    //--------------------------------------------------------------------------------
+    #region "Unlocked Icicles"
+
+    // 保存したつらら解放状況の一次元bool配列を変換するための二次元配列
+    private bool[,] unlockedIcicles2D = new bool[Const.maxfreezerCount, Const.maxIcicleTypePerBook];
+
+    // 解放したい冷凍庫番号・つらら番号を入力すると、対応したつららを解放する
+    public void UnlockIcicle(int freezerIndex, int icicleIndex)
+    {
+        if (freezerIndex > Const.maxfreezerCount - 1) throw new IndexOutOfRangeException("不正な冷凍庫のIndexを受け取りました");
+        if (icicleIndex > Const.maxIcicleTypePerBook - 1) throw new IndexOutOfRangeException("不正なつららのIndexを受け取りました");
+
+        // 一次元配列のまま直接解放
+        data.isUnlockedIcicles[freezerIndex * Const.maxIcicleCount + icicleIndex] = true;
+        Debug.Log($"freezerIndex: {freezerIndex}, icicleIndex: {icicleIndex}のつららを解放しました");
+        Save();
+    }
+
+    #endregion
 }

@@ -106,7 +106,7 @@ public class IcicleManager : MonoBehaviour
             case 3:
                 if (Random.Range(0, 2) == 0) // レアつらら生成時の処理
                 {
-                    int rareId = 5;
+                    int rareId = 7;
                     icicles[growPoint].eyeObj = eyeObjects[icicleSO.icicles[rareId].eyeId];
                     icicles[growPoint].GenerateIcicle(rareId);
                 }

@@ -1,3 +1,25 @@
 {
-    "t_coin": 320
+    "t_coin": 368,
+    "isUnlockedIcicles": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+    ]
 }

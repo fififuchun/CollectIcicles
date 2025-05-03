@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Icicle : MonoBehaviour
 {
+    // インスペクターから静的に代入
+    #region "Function staticly"
+
     public int point; // 生える位置
     public int id; // つららのID
     public int growGrade; // 成長段階
@@ -15,12 +18,19 @@ public class Icicle : MonoBehaviour
     // 落下中の目の画像
     public Sprite dropEye;
 
+    #endregion
+
+    // 以下は動的に代入
+    #region "Function dynamically"
+
     public GameObject eyeObj;
 
     private bool isHolding = false;  // 長押し中か
     private RectTransform panelRect;  // Image の範囲情報
 
     private Transform eyesTran;
+
+    #endregion
 
     void Start()
     {
@@ -42,7 +52,7 @@ public class Icicle : MonoBehaviour
             if (RectTransformUtility.RectangleContainsScreenPoint(panelRect, Input.mousePosition))
             {
                 GetComponent<Rigidbody2D>().gravityScale = 8;
-                OnGet();
+                GatherIcicle();
                 enabled = false;
             }
         }
@@ -80,7 +90,7 @@ public class Icicle : MonoBehaviour
     }
 
     // つららが収穫された時に呼び出される関数
-    public void OnGet()
+    public void GatherIcicle()
     {
         ChangeEye();
 
