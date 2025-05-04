@@ -3,9 +3,20 @@ using FuchunLibrary;
 
 public static class Const
 {
-    public static int maxIcicleCount = 20; // つららの生える最大数
-    public static int maxGrowGrade = 3; // つららの最大成長段階
-    public static int maxIcicleTypePerBook = 20; // つららの最高出現数
+    /// <summary>
+    /// 一回でつららを収穫できる最大数
+    /// </summary>
+    public static int maxIcicleCount = 20;
+
+    /// <summary>
+    /// つららの最大成長段階
+    /// </summary>
+    public static int maxGrowGrade = 3;
+
+    /// <summary>
+    /// 一つの冷凍庫におけるつららの最高出現数
+    /// </summary>
+    public static int maxIcicleTypePerBook = 20;
 
 
     // 通常の冷凍庫に出現するつららのインデックス
@@ -39,6 +50,8 @@ public static class Const
     // つららの座標を冷凍庫ごとに
     public static int[][,] map = new int[][,] { normalMap };
 
-    // 冷凍庫の種類の最大数
+    /// <summary>
+    /// 冷凍庫の種類の最大数
+    /// </summary>
     public static int maxfreezerCount = Library.Min(freezerIndex.Length, map.Length);
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,10 @@ using UnityEngine.UI;
 
 public class IcicleManager : MonoBehaviour
 {
+    // 現在設定中の冷凍庫の番号
+    public int freezerIndex;
+
+    // インスタンス
     [SerializeField] private DataSaver dataSaver;
     [SerializeField] private IcicleSO icicleSO;
     [SerializeField] private Icicle[] icicles = new Icicle[Const.maxIcicleCount];
@@ -22,6 +27,12 @@ public class IcicleManager : MonoBehaviour
     // 落下中の目の画像
     [SerializeField] private Sprite dropEye;
 
+    void Start()
+    {
+        freezerIndex = dataSaver.data.freezerIndex;
+        Debug.Log($"現在使用中のfreezerIndexは: {freezerIndex}");
+    }
+
     void Update()
     {
         // つららをクーラーボックスで回収
@@ -31,6 +42,8 @@ public class IcicleManager : MonoBehaviour
             {
                 Debug.Log($"Reset: {i}");
                 dataSaver.GetCoin(icicleSO.icicles[icicles[i].id].iciclePoint);
+                dataSaver.UnlockIcicle(freezerIndex, Array.IndexOf(Const.freezerIndex[freezerIndex], icicles[i].id));
+
                 Destroy(icicles[i].gameObject);
                 icicles[i] = null;
                 growGrades = GrowGrades();
@@ -43,7 +56,7 @@ public class IcicleManager : MonoBehaviour
         List<int> canGrowPoints = CanGrowPoint();
         if (canGrowPoints.Count == 0) return;
 
-        int growPoint = canGrowPoints[Random.Range(0, canGrowPoints.Count)];
+        int growPoint = canGrowPoints[UnityEngine.Random.Range(0, canGrowPoints.Count)];
         Grow(growPoint);
     }
 
@@ -104,7 +117,7 @@ public class IcicleManager : MonoBehaviour
                 icicles[growPoint].GenerateIcicle(1);
                 break;
             case 3:
-                if (Random.Range(0, 2) == 0) // レアつらら生成時の処理
+                if (UnityEngine.Random.Range(0, 2) == 0) // レアつらら生成時の処理
                 {
                     int rareId = 7;
                     icicles[growPoint].eyeObj = eyeObjects[icicleSO.icicles[rareId].eyeId];

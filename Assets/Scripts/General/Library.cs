@@ -182,12 +182,12 @@ namespace FuchunLibrary
         /// 二次元配列をログにタブ区切りで表示する
         /// </summary>
         /// <param name="array">表示したい二次元配列</param>
-        public static void Print2DArray<T>(T[,] array)
+        public static void Print2DArray<T>(T[,] array, string headText = "head")
         {
             int rows = array.GetLength(0);
             int cols = array.GetLength(1);
 
-            string outputText = "";
+            string outputText = $"{headText} \n";
 
             for (int i = 0; i < rows; i++)
             {
@@ -205,12 +205,12 @@ namespace FuchunLibrary
         /// boolの二次元配列をログにタブ区切りで表示する
         /// </summary>
         /// <param name="array">表示したい二次元配列</param>
-        public static void Print2DBoolArray(bool[,] array)
+        public static void Print2DBoolArray(bool[,] array, string headText = "head")
         {
             int rows = array.GetLength(0);
             int cols = array.GetLength(1);
 
-            string outputText = "";
+            string outputText = $"{headText} \n";
 
             for (int i = 0; i < rows; i++)
             {

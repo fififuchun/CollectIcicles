@@ -1,13 +1,14 @@
 {
-    "t_coin": 368,
+    "t_coin": 34,
+    "freezerIndex": 0,
     "isUnlockedIcicles": [
+        true,
+        true,
         false,
         false,
         false,
         false,
-        false,
-        false,
-        false,
+        true,
         false,
         false,
         false,

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // データ
+    [SerializeField] private DataSaver dataSaver;
+
     void Start()
     {
-
     }
 
     // Update is called once per frame

@@ -134,6 +134,7 @@ public class CellCreator : MonoBehaviour
         return contentHeightCount * cellHeight + (contentHeightCount - 1) * lineHeight + viewPadding * 2;
     }
 
+    // セルとセルをつなげるため、個別の冷凍庫のIndexを対にしたリストを返す
     public List<int[]> ConnectCellList()
     {
         // for (int i = 0; i < Const.freezerIndex[freezerNum].Length; i++)

@@ -12,6 +12,8 @@ public class SaveData
     public int t_coin;
     public int T_coin() { return t_coin; }
 
+    public int freezerIndex;
+
     #endregion
 
 
