@@ -32,19 +32,19 @@ public class LineCreator : MonoBehaviour
         lineRenderer.SetPositions(positions);
     }
 
-    public void SetPos(int[] start, int[] end)
+    public void SetPos(Vector2Int start, Vector2Int end)
     {
-        if (start.Length != 2 || end.Length != 2) return;
+        // if (start.Length != 2 || end.Length != 2) return;
 
         // Debug.Log(String.Join(",", start));
         // Debug.Log(String.Join(",", end));
 
         float content_H = transform.parent.GetComponent<RectTransform>().sizeDelta.y;
 
-        positions[0] = new Vector3(cellInfo[3] * (start[0] - 1), content_H / 2 + lineOffset - (cellInfo[0] + cellInfo[2] + (cellInfo[0] + cellInfo[1]) * (start[1] + 2)));
-        positions[1] = new Vector3(cellInfo[3] * (end[0] - 1), content_H / 2 - lineOffset - (cellInfo[0] + cellInfo[1] + cellInfo[2] + (cellInfo[0] + cellInfo[1]) * (end[1] + 1)));
+        positions[0] = new Vector3(cellInfo[3] * (start.x - 1), content_H / 2 + lineOffset - (cellInfo[0] + cellInfo[2] + (cellInfo[0] + cellInfo[1]) * (start.y + 2)));
+        positions[1] = new Vector3(cellInfo[3] * (end.x - 1), content_H / 2 - lineOffset - (cellInfo[0] + cellInfo[1] + cellInfo[2] + (cellInfo[0] + cellInfo[1]) * (end.y + 1)));
 
-        Debug.Log($"{positions[0]}, {positions[1]}");
+        // Debug.Log($"{positions[0]}, {positions[1]}");
     }
 
     public void SetCellInfo(int cellHeight, int lineHeight, int viewPadding, int cellWidth)

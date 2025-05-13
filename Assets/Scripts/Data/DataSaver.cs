@@ -16,7 +16,7 @@ public class DataSaver : MonoBehaviour
     string filepath;
 
     // jsonファイル名
-    string fileName = "Data.json";
+    string fileName = "Datas/Data.json";
 
     // icicleSO
     [SerializeField] private IcicleSO icicleSO;
@@ -25,7 +25,7 @@ public class DataSaver : MonoBehaviour
 
     #region "Essentials"
     // 開始時にファイルチェック、読み込み
-    void Awake()
+    async void Awake()
     {
         // パス名取得
 #if UNITY_EDITOR
@@ -47,6 +47,8 @@ public class DataSaver : MonoBehaviour
 
         // データを基に数値を初期化
         InitAppearance();
+
+        await LoadAssets.WaitUntilLoadedAsync();
 
         unlockedIcicles2D = Library.ConvertDimOneToTwo(data.isUnlockedIcicles, Const.maxfreezerCount, Const.maxIcicleTypePerBook);
         Library.Print2DBoolArray(unlockedIcicles2D, "解放済みのつららリスト");

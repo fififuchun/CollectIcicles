@@ -1,0 +1,346 @@
+{
+    "freezerIndex": 1,
+    "code": "PLT",
+    "icicles": [
+        {
+            "icicleName": "",
+            "index": 0,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 1,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 2,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 3,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 4,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 5,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 6,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 7,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 8,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 9,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 10,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 11,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 12,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 13,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 14,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 15,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 16,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 17,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 18,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        },
+        {
+            "icicleName": "",
+            "index": 19,
+            "id": 0,
+            "iciclePoint": 0,
+            "rareGrade": 0,
+            "scale_x": 0.0,
+            "scale_y": 0.0,
+            "eyeId": 0,
+            "eye_y": 0,
+            "book_x": 0,
+            "book_y": 0,
+            "image": {
+                "instanceID": 0
+            },
+            "requiredUnlock": []
+        }
+    ]
+}
