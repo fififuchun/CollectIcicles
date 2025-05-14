@@ -11,7 +11,7 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "IcicleSO", menuName = "Create IcicleSO")]
 public class IcicleSO : ScriptableObject
 {
-    public int freezerIndex;
+    public int freezerNum;
     [ReadOnly] public string code;
 
     public Icicles[] icicles = new Icicles[20];
@@ -20,7 +20,7 @@ public class IcicleSO : ScriptableObject
     private void OnValidate()
     {
         // 冷凍庫コードを出力
-        code = Const.icicleBookCodes[freezerIndex];
+        code = Const.icicleBookCodes[freezerNum];
 
         // インデックスをリストの位置と同期
         for (int i = 0; i < icicles.Length; i++)
@@ -120,7 +120,7 @@ public class IcicleSOEditor : Editor
     private void OnEnable()
     {
         icicleSO = target as IcicleSO;
-        freezerIndex = icicleSO.freezerIndex;
+        freezerIndex = icicleSO.freezerNum;
 
         // Debug.Log(freezerIndex);
     }

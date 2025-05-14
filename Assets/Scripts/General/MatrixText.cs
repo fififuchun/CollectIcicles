@@ -4,10 +4,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.IO;
 
 public class MatrixText : MonoBehaviour
 {
+    #region variables
+
     //状況ごとのチュートリアルメッセージ
     [SerializeField] private MatrixTextSO matrixTextSO;
 
@@ -20,61 +21,24 @@ public class MatrixText : MonoBehaviour
     //列
     [SerializeField, ReadOnly] private int matrixColumnNum;
 
+    // Buttonを消すかどうか
+    [SerializeField] private bool isVanishButton = true;
+
     // jsonファイルのパス
-    string filepath;
+    public static string filepath = Application.dataPath + "/" + "Datas/MatrixTextData.json";
 
     // jsonファイル名
-    string fileName = "MatrixTextData.json";
+    // string fileName = "MatrixTextData.json";
 
+    #endregion
 
-    //==================================================(50)
-    //関数
+    #region methods
+    //====================================================================================================100
     // 開始時にファイルチェック、読み込み
     void Awake()
     {
-        // パス名取得
-        filepath = Application.dataPath + "/" + fileName;
-
-        // ファイルがないとき、ファイル作成
-        // if (!File.Exists(filepath)) Save(matrixTextSO);
-        if (matrixTextSO.stringGroups.Length != 0) Save(matrixTextSO);
-
-        // ファイルを読み込む
-        // matrixTextSO.stringGroups = Load(filepath);
-        // Initialize(matrixRowNum);
-    }
-
-    // jsonとしてデータを保存
-    public void Save(MatrixTextSO data)
-    {
-        // jsonとして変換
-        string json = JsonUtility.ToJson(data, true);
-
-        // ファイル書き込み指定
-        StreamWriter wr = new StreamWriter(filepath, false);
-
-        // json変換した情報を書き込み
-        wr.WriteLine(json);
-
-        // ファイル閉じる
-        wr.Close();
-    }
-
-    // jsonファイル読み込み
-    private MatrixTextData[] Load(string path)
-    {
-        // ファイル読み込み指定
-        StreamReader rd = new StreamReader(path);
-
-        // ファイル内容全て読み込む
-        string json = rd.ReadToEnd();
-        Debug.Log(json);
-
-        // ファイル閉じる
-        rd.Close();
-
-        // jsonファイルを型に戻して返す
-        return JsonUtility.FromJson<MatrixTextData[]>(json);
+        // 初期化
+        Initialize(matrixRowNum);
     }
 
     /// <summary>
@@ -126,14 +90,18 @@ public class MatrixText : MonoBehaviour
     {
         // Debug.Log($"{matrixColumnNum}へ進む");
         matrixColumnNum++;
+
+        // 列のラストのテキストなら返す
         if (matrixTextSO.stringGroups[matrixRowNum].strings.Length <= matrixColumnNum)
         {
             // Debug.Log($"{matrixColumnNum}, テキストがありません");
             matrixColumnNum = 0;
-            gameObject.transform.parent.gameObject.SetActive(false);
+            matrixElementText.text = matrixTextSO.stringGroups[matrixRowNum].strings[matrixColumnNum];
+            gameObject.transform.parent.gameObject.SetActive(!isVanishButton);
             return;
         }
 
         matrixElementText.text = matrixTextSO.stringGroups[matrixRowNum].strings[matrixColumnNum];
     }
+    #endregion
 }

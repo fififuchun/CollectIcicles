@@ -6,7 +6,7 @@ using UnityEngine;
 // どの冷凍庫かを入力すると、その冷凍庫に出現するつららの図鑑における座標を計算する
 public class CellCalculator : MonoBehaviour
 {
-    [SerializeField] private IcicleSO icicleSO;
+    // [SerializeField] private IcicleSO icicleSO;
 
     void Start()
     {

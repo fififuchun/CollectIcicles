@@ -9,11 +9,12 @@ public class Icicle : MonoBehaviour
     #region "Function staticly"
 
     public int point; // 生える位置
-    public int id; // つららのID
+    // public int id; // つららのID
+    public int index; // この冷凍庫でのつららのindex
     public int growGrade; // 成長段階
 
     // つららSO
-    public IcicleSO icicleSO;
+    // public IcicleSO icicleSO;
 
     // 落下中の目の画像
     public Sprite dropEye;
@@ -62,31 +63,31 @@ public class Icicle : MonoBehaviour
     }
 
     // つらら生成時の初期化処理
-    public void GenerateIcicle(int _id)
+    public void GenerateIcicle(int _index)
     {
-        id = _id;
-        GetComponent<Image>().sprite = icicleSO.icicles[_id].image;
+        index = _index;
+        GetComponent<Image>().sprite = Const.icicleSO_Array[Const.freezerNum].icicles[_index].image;
         RectTransform thisRect = transform as RectTransform;
 
         // つららの大きさが変わる場合
-        if (icicleSO.icicles[_id].scale_x != 1.0f || icicleSO.icicles[_id].scale_y != 1.0f)
+        if (Const.icicleSO_Array[Const.freezerNum].icicles[_index].scale_x != 1.0f || Const.icicleSO_Array[Const.freezerNum].icicles[_index].scale_y != 1.0f)
         {
-            Debug.Log($"Change Scale to x: {icicleSO.icicles[_id].scale_x}, y: {icicleSO.icicles[_id].scale_y} in point: {point}");
+            Debug.Log($"Change Scale to x: {Const.icicleSO_Array[Const.freezerNum].icicles[_index].scale_x}, y: {Const.icicleSO_Array[Const.freezerNum].icicles[_index].scale_y} in point: {point}");
             thisRect.sizeDelta = new Vector2(
-                thisRect.sizeDelta.x * icicleSO.icicles[_id].scale_x, thisRect.sizeDelta.y * icicleSO.icicles[_id].scale_y);
+                thisRect.sizeDelta.x * Const.icicleSO_Array[Const.freezerNum].icicles[_index].scale_x, thisRect.sizeDelta.y * Const.icicleSO_Array[Const.freezerNum].icicles[_index].scale_y);
         }
 
         // つららの目が変わる場合
-        if (icicleSO.icicles[_id].eyeId != 0)
+        if (Const.icicleSO_Array[Const.freezerNum].icicles[_index].eyeId != 0)
         {
-            Debug.Log($"Change Eye to {icicleSO.icicles[_id].eyeId} in {point}");
+            Debug.Log($"Change Eye to {Const.icicleSO_Array[Const.freezerNum].icicles[_index].eyeId} in {point}");
             Destroy(eyesTran.gameObject);
 
             GameObject _eyeObj = Instantiate(eyeObj, transform);
-            _eyeObj.transform.localPosition = new Vector3(0, icicleSO.icicles[_id].eye_y);
+            _eyeObj.transform.localPosition = new Vector3(0, Const.icicleSO_Array[Const.freezerNum].icicles[_index].eye_y);
         }
         // 変わらない場合、目の位置を調整
-        else transform.GetChild(1).localPosition = new Vector3(0, icicleSO.icicles[_id].eye_y, 0);
+        else transform.GetChild(1).localPosition = new Vector3(0, Const.icicleSO_Array[Const.freezerNum].icicles[_index].eye_y, 0);
     }
 
     // つららが収穫された時に呼び出される関数
