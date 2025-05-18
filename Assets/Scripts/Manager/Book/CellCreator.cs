@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Cysharp.Threading.Tasks;
 
 // 図鑑におけるセルの生成を行う
 // [ExecuteAlways]
@@ -24,7 +25,7 @@ public class CellCreator : MonoBehaviour
     private int cellWidth = 350;
 
     // つららのSO
-    [SerializeField] private IcicleSO icicleSO;
+    // [SerializeField] private IcicleSO icicleSO;
 
     // スクロールビューのセルの親
     [SerializeField] private RectTransform content;
@@ -51,17 +52,19 @@ public class CellCreator : MonoBehaviour
         // }
     }
 
-    [SerializeField] private List<int[]> connectList = new List<int[]>();
+    [SerializeField] private List<Vector2Int> connectList = new List<Vector2Int>();
 
-    void Start()
+    async void Start()
     {
+        await LoadAssets.WaitUntilLoadedAsync();
+
         // ScrollViewの高さを元にcellを生成
         // int contentHeight = ContentHeight();
         CreateCell();
 
         // cell同士を繋げるためのIndexのリスト
         connectList = ConnectCellList();
-        // foreach (int[] line in connectList) Debug.Log(String.Join(",", line));
+        // foreach (Vector2Int line in connectList) Debug.Log(String.Join(",", line));
 
         // リストを基にLineを生成
         lineCreators = new LineCreator[connectList.Count()];
@@ -70,10 +73,11 @@ public class CellCreator : MonoBehaviour
             GameObject gameObject = Instantiate(lineObj, content.transform);
             lineCreators[i] = gameObject.GetComponent<LineCreator>();
             lineCreators[i].SetCellInfo(cellHeight, lineHeight, viewPadding, cellWidth);
-            lineCreators[i].SetPos(
-                new int[] { Const.map[freezerNum][connectList[i][0], 0], Const.map[freezerNum][connectList[i][0], 1] },
-                new int[] { Const.map[freezerNum][connectList[i][1], 0], Const.map[freezerNum][connectList[i][1], 1] }
-                );
+            // lineCreators[i].SetPos(
+            //     new int[] { Const.map[freezerNum][connectList[i][0], 0], Const.map[freezerNum][connectList[i][0], 1] },
+            //     new int[] { Const.map[freezerNum][connectList[i][1], 0], Const.map[freezerNum][connectList[i][1], 1] }
+            //     );
+            lineCreators[i].SetPos(BookPos(connectList[i][0]), BookPos(connectList[i][1]));
         }
 
         lineObj.SetActive(false);
@@ -99,35 +103,58 @@ public class CellCreator : MonoBehaviour
     // icicleSOとGameObjectを連携
     public void CreateCell()
     {
-        for (int i = 0; i < Const.freezerIndex[freezerNum].Length; i++)
+        for (int i = 0; i < Const.maxIcicleTypePerBook; i++)
         {
             _cellPrefabs[i].anchoredPosition =
                 new Vector3((
-                    Const.map[freezerNum][i, 0] - 1) * 350,
-                    -((2 + Const.map[freezerNum][i, 1]) * (cellHeight + lineHeight) + viewPadding + cellHeight / 2),
+                    Const.icicleSO_Array[freezerNum].icicles[i].book_x - 1) * 350,
+                    -((2 + Const.icicleSO_Array[freezerNum].icicles[i].book_y) * (cellHeight + lineHeight) + viewPadding + cellHeight / 2),
                     0);
 
-            // Debug.Log((2 - Const.map[freezerNum][i, 1]) * (cellHeight + lineHeight) + viewPadding + cellHeight / 2);
+            icicleNames[i].text = Const.icicleSO_Array[Const.freezerNum].icicles[i].icicleName;
 
-            icicleNames[i].text = icicleSO.icicles[Const.freezerIndex[freezerNum][i]].icicleName;
-
-            Sprite icicleSprite = icicleSO.icicles[Const.freezerIndex[freezerNum][i]].image;
+            Sprite icicleSprite = Const.icicleSO_Array[Const.freezerNum].icicles[i].image;
             if (icicleSprite != null) images[i].sprite = icicleSprite;
 
-            coinTexts[i].text = icicleSO.icicles[Const.freezerIndex[freezerNum][i]].iciclePoint.ToString();
+            coinTexts[i].text = Const.icicleSO_Array[Const.freezerNum].icicles[i].iciclePoint.ToString();
         }
+        // for (int i = 0; i < Const.freezerIndex[freezerNum].Length; i++)
+        // {
+        //     _cellPrefabs[i].anchoredPosition =
+        //         new Vector3((
+        //             Const.map[freezerNum][i, 0] - 1) * 350,
+        //             -((2 + Const.map[freezerNum][i, 1]) * (cellHeight + lineHeight) + viewPadding + cellHeight / 2),
+        //             0);
 
-        content.sizeDelta = new Vector2(content.sizeDelta.x, ContentHeight());
+        //     // Debug.Log((2 - Const.map[freezerNum][i, 1]) * (cellHeight + lineHeight) + viewPadding + cellHeight / 2);
+
+        //     icicleNames[i].text = icicleSO.icicles[Const.freezerIndex[freezerNum][i]].icicleName;
+
+        //     Sprite icicleSprite = icicleSO.icicles[Const.freezerIndex[freezerNum][i]].image;
+        //     if (icicleSprite != null) images[i].sprite = icicleSprite;
+
+        //     coinTexts[i].text = icicleSO.icicles[Const.freezerIndex[freezerNum][i]].iciclePoint.ToString();
+        // }
+
+        content.sizeDelta = new Vector2Int(Mathf.FloorToInt(content.sizeDelta.x), ContentHeight());
     }
 
     // つらら図鑑に要する高さを出力
     public int ContentHeight()
     {
         // 特定の冷凍庫番号で出現するつららの最大数
-        int icicleType = Const.map[freezerNum].GetLength(0);
+        // int icicleType = Const.map[freezerNum].GetLength(0);
 
-        int[] y_row = new int[icicleType];
-        for (int i = 0; i < icicleType; i++) y_row[i] = Const.map[freezerNum][i, 1];
+        // int[] y_row = new int[icicleType];
+        // for (int i = 0; i < icicleType; i++) y_row[i] = Const.map[freezerNum][i, 1];
+
+        // int contentHeightCount = y_row.Max() - y_row.Min() + 1;
+
+        // return contentHeightCount * cellHeight + (contentHeightCount - 1) * lineHeight + viewPadding * 2;
+
+        // 特定の冷凍庫番号で出現するつららの最大数
+        int[] y_row = new int[Const.maxIcicleTypePerBook];
+        for (int i = 0; i < y_row.Length; i++) y_row[i] = Const.icicleSO_Array[freezerNum].icicles[i].book_y;
 
         int contentHeightCount = y_row.Max() - y_row.Min() + 1;
 
@@ -135,20 +162,40 @@ public class CellCreator : MonoBehaviour
     }
 
     // セルとセルをつなげるため、個別の冷凍庫のIndexを対にしたリストを返す
-    public List<int[]> ConnectCellList()
+    public List<Vector2Int> ConnectCellList()
     {
         // for (int i = 0; i < Const.freezerIndex[freezerNum].Length; i++)
 
-        List<int[]> connects = new List<int[]>();
+        // List<int[]> connects = new List<int[]>();
 
-        foreach (int i in Const.freezerIndex[freezerNum])
+        // foreach (int i in Const.freezerIndex[freezerNum])
+        // {
+        //     foreach (int j in icicleSO.icicles[i].requiredUnlock)
+        //     {
+        //         connects.Add(new int[2] { Array.IndexOf(Const.freezerIndex[freezerNum], j), Array.IndexOf(Const.freezerIndex[freezerNum], i) });
+        //     }
+        // }
+
+        // return connects;
+
+        List<Vector2Int> connects = new List<Vector2Int>();
+
+        for (int i = 0; i < Const.maxIcicleTypePerBook; i++)
         {
-            foreach (int j in icicleSO.icicles[i].requiredUnlock)
+            // Debug.Log($"i: {i}");
+            foreach (int j in Const.icicleSO_Array[freezerNum].icicles[i].requiredUnlock)
             {
-                connects.Add(new int[2] { Array.IndexOf(Const.freezerIndex[freezerNum], j), Array.IndexOf(Const.freezerIndex[freezerNum], i) });
+                connects.Add(new Vector2Int(j, i));
             }
         }
 
         return connects;
+    }
+
+    // 図鑑のindexを指定すると、対応する図鑑のx,y座標を対にした配列を返す
+    public Vector2Int BookPos(int index)
+    {
+        Icicles icicles = Const.icicleSO_Array[freezerNum].icicles[index];
+        return new Vector2Int(icicles.book_x, icicles.book_y);
     }
 }

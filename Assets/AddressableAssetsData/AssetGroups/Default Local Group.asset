@@ -16,7 +16,22 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 79c1098ae4dbe468f8e41a9c5ae05643
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 6b9ba9952242045508f2ed720c5f2197
+    m_Address: Assets/Images/Icicles/NotFound.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e60eda2fae98491a81ad7800fecba15
+    m_Address: Assets/Scripts/SO/IcicleSO_0.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8824a9c47265c42fd95206736dad4d0b
+    m_Address: Assets/Scripts/SO/IcicleSO_1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 91d0056e9c9b14788b2662a203ba633a, type: 2}
   m_SchemaSet:

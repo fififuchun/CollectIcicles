@@ -16,16 +16,16 @@ public class DataSaver : MonoBehaviour
     string filepath;
 
     // jsonファイル名
-    string fileName = "Data.json";
+    string fileName = "Datas/Data.json";
 
     // icicleSO
-    [SerializeField] private IcicleSO icicleSO;
+    // [SerializeField] private IcicleSO icicleSO;
 
     //--------------------------------------------------------------------------------
 
     #region "Essentials"
     // 開始時にファイルチェック、読み込み
-    void Awake()
+    async void Awake()
     {
         // パス名取得
 #if UNITY_EDITOR
@@ -47,6 +47,8 @@ public class DataSaver : MonoBehaviour
 
         // データを基に数値を初期化
         InitAppearance();
+
+        await LoadAssets.WaitUntilLoadedAsync();
 
         unlockedIcicles2D = Library.ConvertDimOneToTwo(data.isUnlockedIcicles, Const.maxfreezerCount, Const.maxIcicleTypePerBook);
         Library.Print2DBoolArray(unlockedIcicles2D, "解放済みのつららリスト");
@@ -103,7 +105,7 @@ public class DataSaver : MonoBehaviour
     public void InitializeGameData()
     {
         GetCoin(-TCoin);
-        data.freezerIndex = 0;
+        data.freezerNum = 0;
         data.isUnlockedIcicles = new bool[data.isUnlockedIcicles.Length];
 
         Save();
@@ -155,12 +157,14 @@ public class DataSaver : MonoBehaviour
         for (int i = 0; i < Const.maxIcicleTypePerBook; i++)
         {
             // Debug.Log(Const.freezerIndex[data.freezerIndex][i]);
-            int[] reqUnlockIndexes = icicleSO.icicles[Const.freezerIndex[data.freezerIndex][i]].requiredUnlock;
+            // int[] reqUnlockIndexes = icicleSO.icicles[Const.freezerIndex[data.freezerIndex][i]].requiredUnlock;
+            int[] reqUnlockIndexes = Const.icicleSO_Array[Const.freezerNum].icicles[i].requiredUnlock;
             bool canUnlock_i = true;
 
             foreach (int reqIndex in reqUnlockIndexes)
             {
-                if (!data.isUnlockedIcicles[data.freezerIndex * Const.maxIcicleTypePerBook + Array.IndexOf(Const.freezerIndex[data.freezerIndex], reqIndex)])
+                // if (!data.isUnlockedIcicles[data.freezerNum * Const.maxIcicleTypePerBook + Array.IndexOf(Const.freezerIndex[data.freezerNum], reqIndex)])
+                if (!data.isUnlockedIcicles[data.freezerNum * Const.maxIcicleTypePerBook + reqIndex])
                 {
                     canUnlock_i = false;
                     break;
@@ -175,21 +179,21 @@ public class DataSaver : MonoBehaviour
     /// <summary>
     /// 解放したい冷凍庫番号・つらら番号を入力すると、対応したつららを解放する
     /// </summary>
-    public void UnlockIcicle(int freezerIndex, int icicleIndex)
+    public void UnlockIcicle(int freezerNum, int icicleIndex)
     {
-        if (freezerIndex > Const.maxfreezerCount - 1) throw new IndexOutOfRangeException("不正な冷凍庫のIndexを受け取りました");
+        if (freezerNum > Const.maxfreezerCount - 1) throw new IndexOutOfRangeException("不正な冷凍庫のIndexを受け取りました");
         if (icicleIndex > Const.maxIcicleTypePerBook - 1) throw new IndexOutOfRangeException("不正なつららのIndexを受け取りました");
 
-        if (data.isUnlockedIcicles[freezerIndex * Const.maxIcicleCount + icicleIndex]) { Debug.Log("already Unlocked"); return; }
+        if (data.isUnlockedIcicles[freezerNum * Const.maxIcicleCount + icicleIndex]) { Debug.Log("already Unlocked"); return; }
         else
         {
             // 一次元配列のまま、直接解放
-            data.isUnlockedIcicles[freezerIndex * Const.maxIcicleCount + icicleIndex] = true;
+            data.isUnlockedIcicles[freezerNum * Const.maxIcicleCount + icicleIndex] = true;
 
             //収穫可能なつららを更新
             RefreshCanGather();
 
-            Debug.Log($"freezerIndex: {freezerIndex}, icicleIndex: {icicleIndex}のつららを解放しました");
+            Debug.Log($"freezerIndex: {freezerNum}, icicleIndex: {icicleIndex}のつららを解放しました");
             Save();
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BookManager : MonoBehaviour
 {
-    [SerializeField] private IcicleSO icicleSO;
+    // [SerializeField] private IcicleSO icicleSO;
 
     void Start()
     {

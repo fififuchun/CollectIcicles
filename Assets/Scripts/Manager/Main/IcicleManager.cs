@@ -8,11 +8,11 @@ using UnityEngine.UI;
 public class IcicleManager : MonoBehaviour
 {
     // 現在設定中の冷凍庫の番号
-    public int freezerIndex;
+    // public int freezerNum;
 
     // インスタンス
     [SerializeField] private DataSaver dataSaver;
-    [SerializeField] private IcicleSO icicleSO;
+    // [SerializeField] private IcicleSO icicleSO;
     [SerializeField] private Icicle[] icicles = new Icicle[Const.maxIcicleCount];
 
 
@@ -29,23 +29,24 @@ public class IcicleManager : MonoBehaviour
 
     void Start()
     {
-        freezerIndex = dataSaver.data.freezerIndex;
-        Debug.Log($"現在使用中のfreezerIndexは: {freezerIndex}");
+        // freezerNum = dataSaver.data.freezerNum;
+        Debug.Log($"現在使用中のfreezerIndexは: {Const.freezerNum}");
+        // GrowIcicle();
     }
 
     void Update()
     {
         // つららをクーラーボックスで回収
-        for (int i = 0; i < icicles.Length; i++)
-            if (icicles[i] == null) continue;
-            else if (icicles[i].transform.position.y < 600)
+        for (int point = 0; point < icicles.Length; point++)
+            if (icicles[point] == null) continue;
+            else if (icicles[point].transform.position.y < 600)
             {
-                Debug.Log($"Reset: {i}");
-                dataSaver.GetCoin(icicleSO.icicles[icicles[i].id].iciclePoint);
-                dataSaver.UnlockIcicle(freezerIndex, Array.IndexOf(Const.freezerIndex[freezerIndex], icicles[i].id));
+                Debug.Log($"Reset: {point}");
+                dataSaver.GetCoin(Const.icicleSO_Array[Const.freezerNum].icicles[icicles[point].index].iciclePoint);
+                dataSaver.UnlockIcicle(Const.freezerNum, icicles[point].index);
 
-                Destroy(icicles[i].gameObject);
-                icicles[i] = null;
+                Destroy(icicles[point].gameObject);
+                icicles[point] = null;
                 growGrades = GrowGrades();
             }
     }
@@ -98,7 +99,8 @@ public class IcicleManager : MonoBehaviour
 
             icicles[growPoint] = _babyIcicle.GetComponent<Icicle>();
             icicles[growPoint].point = growPoint;
-            icicles[growPoint].id = 0;
+            // icicles[growPoint].id = 0;
+            icicles[growPoint].index = -1;
             // icicles[growPoint].icicleSO = icicleSO;
             // icicles[growPoint].dropEye = dropEye;
         }
@@ -114,16 +116,16 @@ public class IcicleManager : MonoBehaviour
                 // Debug.Log("ちびつららを生成しました");
                 break;
             case 2:
-                icicles[growPoint].GenerateIcicle(1);
+                icicles[growPoint].GenerateIcicle(0);
                 break;
             case 3:
                 if (UnityEngine.Random.Range(0, 2) == 0) // レアつらら生成時の処理
                 {
-                    int rareId = 7;
-                    icicles[growPoint].eyeObj = eyeObjects[icicleSO.icicles[rareId].eyeId];
-                    icicles[growPoint].GenerateIcicle(rareId);
+                    int rareIndex = 6;
+                    icicles[growPoint].eyeObj = eyeObjects[Const.icicleSO_Array[Const.freezerNum].icicles[rareIndex].eyeId];
+                    icicles[growPoint].GenerateIcicle(rareIndex);
                 }
-                else icicles[growPoint].GenerateIcicle(2);
+                else icicles[growPoint].GenerateIcicle(1);
 
                 break;
             default:

@@ -11,17 +11,35 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "IcicleSO", menuName = "Create IcicleSO")]
 public class IcicleSO : ScriptableObject
 {
-    public Icicles[] icicles;
+    public int freezerNum;
+    [ReadOnly] public string code;
+
+    public Icicles[] icicles = new Icicles[20];
 
     // インスペクター上で変更があったときに自動更新
     private void OnValidate()
     {
+        // 冷凍庫コードを出力
+        code = Const.icicleBookCodes[freezerNum];
+
         // インデックスをリストの位置と同期
-        for (int i = 0; i < icicles.Length; i++) if (icicles[i] != null)
+        for (int i = 0; i < icicles.Length; i++)
+        {
+            icicles[i].index = i;
+            // icicles[i].id = i + 1;
+            // icicles[i].book_x = Const.normalMap[i, 0];
+            // icicles[i].book_y = Const.normalMap[i, 1];
+        }
+
+        if (icicles == null || icicles.Length != Const.maxIcicleTypePerBook)
+        {
+            Icicles[] newArray = new Icicles[Const.maxIcicleTypePerBook];
+            for (int i = 0; i < Mathf.Min(Const.maxIcicleTypePerBook, icicles?.Length ?? 0); i++)
             {
-                icicles[i].index = i;
-                icicles[i].id = i.ToString("D3");
+                newArray[i] = icicles[i];
             }
+            icicles = newArray;
+        }
     }
 }
 
@@ -31,16 +49,19 @@ public class Icicles
     [Header("基本情報")]
     public string icicleName; // つららの名前
     public int index; // つららのindex
-    public string id; // つららのID
-    // [SerializeField] internal string id; // つららのID
+    [ReadOnly] public int id; // つららのID
     public int iciclePoint; // つららのポイント
     public int rareGrade; // つららのレア度
 
-    [Header("生成時に必要な情報")]
+    [Header("つらら生成時に必要な情報")]
     public float scale_x; // つららのスケール
     public float scale_y; // つららのスケール
     public int eyeId; // つららの目のID
     public int eye_y; // つららの目の位置
+
+    [Header("図鑑生成時に必要な情報")]
+    public int book_x; // つらら図鑑のX座標
+    public int book_y; // つらら図鑑のY座標
 
     [Header("その他情報")]
     public Sprite image; // つららの画像
@@ -52,9 +73,6 @@ public class Icicles
 // SOとJsonの変換を行うクラス
 public class ConvertIcicleSO : MonoBehaviour
 {
-    // [SerializeField] internal string m_dataPath = "SampleData.json";
-    // [SerializeField] IcicleSO icicleSO;
-
     public static string GetFullPath(string _dataPath)
     {
 #if !UNITY_EDITOR
@@ -62,10 +80,10 @@ public class ConvertIcicleSO : MonoBehaviour
 #else
         string appPath = Application.dataPath;
 #endif
-        return $"{appPath}/{_dataPath}";
+        return $"{appPath}/Datas/{_dataPath}";
     }
 
-    public static bool SaveToJSON(string _dataPath, IcicleSO _dataSO)
+    public static bool SaveToJson(string _dataPath, IcicleSO _dataSO)
     {
         bool result = false;
         string fullPath = GetFullPath(_dataPath);
@@ -95,12 +113,16 @@ public class ConvertIcicleSO : MonoBehaviour
 public class IcicleSOEditor : Editor
 {
     public IcicleSO icicleSO;
+    public int freezerIndex;
 
-    string m_dataPath = "IcicleData.json";
+    // string m_dataPath = $"IcicleBook_{freezerIndex}.json";
 
     private void OnEnable()
     {
         icicleSO = target as IcicleSO;
+        freezerIndex = icicleSO.freezerNum;
+
+        // Debug.Log(freezerIndex);
     }
 
     public override void OnInspectorGUI()
@@ -109,13 +131,13 @@ public class IcicleSOEditor : Editor
 
         if (GUILayout.Button("Save SO in Json"))
         {
-            ConvertIcicleSO.SaveToJSON(m_dataPath, icicleSO);
+            ConvertIcicleSO.SaveToJson($"IcicleBook_{freezerIndex}.json", icicleSO);
             Debug.Log("Save SO in Json");
         }
 
         if (GUILayout.Button("Load Json"))
         {
-            StreamReader rd = new StreamReader(Application.dataPath + "/" + m_dataPath);
+            StreamReader rd = new StreamReader(ConvertIcicleSO.GetFullPath($"IcicleBook_{freezerIndex}.json"));
             string json = rd.ReadToEnd();
             rd.Close();
             JsonUtility.FromJsonOverwrite(json, icicleSO);
