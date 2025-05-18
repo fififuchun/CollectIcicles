@@ -1,9 +1,9 @@
 {
-    "t_coin": 29,
+    "t_coin": 100,
     "freezerNum": 0,
     "isUnlockedIcicles": [
         true,
-        false,
+        true,
         false,
         false,
         false,

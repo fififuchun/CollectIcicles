@@ -42,9 +42,9 @@ public static class Const
     #region "delete finally"
 
     // 通常の冷凍庫に出現するつららのインデックス
-    public static int[] normalFreezerIndex = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+    // public static int[] normalFreezerIndex = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
     // 冷凍庫に出現する固有のつららの種類
-    public static int[][] freezerIndex = new int[][] { normalFreezerIndex };
+    // public static int[][] freezerIndex = new int[][] { normalFreezerIndex };
 
     // 普通の冷凍庫に出現するつららの座標
     // public static int[,] normalMap = new int[20, 2]{
