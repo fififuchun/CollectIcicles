@@ -10,6 +10,9 @@ public class IcicleManager : MonoBehaviour
     // 現在設定中の冷凍庫の番号
     // public int freezerNum;
 
+    // Canvas
+    [SerializeField] private Canvas canvas;
+
     // インスタンス
     [SerializeField] private DataSaver dataSaver;
     // [SerializeField] private IcicleSO icicleSO;
@@ -32,6 +35,8 @@ public class IcicleManager : MonoBehaviour
         // freezerNum = dataSaver.data.freezerNum;
         Debug.Log($"現在使用中のfreezerIndexは: {Const.freezerNum}");
         // GrowIcicle();
+
+        // ConfirmProp(new int[3] { 1, 3, 6 });
     }
 
     void Update()
@@ -39,7 +44,7 @@ public class IcicleManager : MonoBehaviour
         // つららをクーラーボックスで回収
         for (int point = 0; point < icicles.Length; point++)
             if (icicles[point] == null) continue;
-            else if (icicles[point].transform.position.y < 600)
+            else if (icicles[point].transform.localPosition.y < -300)
             {
                 Debug.Log($"Reset: {point}");
                 dataSaver.GetCoin(Const.icicleSO_Array[Const.freezerNum].icicles[icicles[point].index].iciclePoint);
@@ -81,16 +86,8 @@ public class IcicleManager : MonoBehaviour
         if (icicles[growPoint] != null) // 不正な入力を検知
         {
             // 成長させようとしたポイントの成長段階が0未満、または最大成長段階以上の場合はエラーを出力
-            if (icicles[growPoint].growGrade >= Const.maxGrowGrade)
-            {
-                Debug.LogError("これ以上成長できません");
-                return;
-            }
-            if (icicles[growPoint].growGrade < 0)
-            {
-                Debug.LogError("Invalid grow grade");
-                return;
-            }
+            if (icicles[growPoint].growGrade >= Const.maxGrowGrade) { Debug.LogError("これ以上成長できません"); return; }
+            if (icicles[growPoint].growGrade < 0) { Debug.LogError("Invalid grow grade"); return; }
         }
         else // 初生成ならオブジェクトを生成
         {
@@ -99,10 +96,8 @@ public class IcicleManager : MonoBehaviour
 
             icicles[growPoint] = _babyIcicle.GetComponent<Icicle>();
             icicles[growPoint].point = growPoint;
-            // icicles[growPoint].id = 0;
             icicles[growPoint].index = -1;
-            // icicles[growPoint].icicleSO = icicleSO;
-            // icicles[growPoint].dropEye = dropEye;
+            icicles[growPoint].canvas = canvas;
         }
 
         // 成長レベルを上げる
@@ -136,4 +131,41 @@ public class IcicleManager : MonoBehaviour
 
     // つららの成長具合を長さ20のint配列で返す
     public int[] GrowGrades() { return icicles?.Select(icicle => icicle?.growGrade ?? 0).ToArray() ?? new int[0]; }
+
+    /// <summary>
+    /// レア度の列を入力すると、その高さに応じた確率で入力のindexを返す
+    /// 例えば、[1, 3, 6]を入力した場合、10%で0, 30%で1, 60%で2 を返す
+    /// </summary>
+    /// <param name="rareGradeArray">つららのレア度配列</param>
+    /// <returns></returns>
+    public int ChooseRareIcicle(int[] rareGradeArray)
+    {
+        // 不正な入力なら-1を返す
+        if (rareGradeArray.Length < 1) return -1;
+
+        int sum = rareGradeArray.Sum();
+        int randomNum = UnityEngine.Random.Range(0, sum);
+
+        for (int i = 0; i < rareGradeArray.Length; i++)
+        {
+            randomNum -= rareGradeArray[i];
+            if (randomNum < 0) return i;
+        }
+
+        return -1;
+    }
+
+    // Propが本当か確かめる
+    // public void ConfirmProp(int[] array)
+    // {
+    //     int[] propArray = new int[array.Length];
+
+    //     for (int i = 0; i < 10000; i++)
+    //     {
+    //         int prop = ChooseRareIcicle(array);
+    //         propArray[prop]++;
+    //     }
+
+    //     Debug.Log(String.Join(",", propArray));
+    // }
 }

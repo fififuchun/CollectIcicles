@@ -19,7 +19,7 @@ public class Mission : MonoBehaviour
     void OnEnable()
     {
         missionSO.onMissionChanged.AddListener(OnMissionChanged);
-        Debug.Log("Attach");
+        // Debug.Log("Attach");
     }
 
     void OnMissionChanged()

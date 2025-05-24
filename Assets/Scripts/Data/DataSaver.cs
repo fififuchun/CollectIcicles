@@ -156,14 +156,11 @@ public class DataSaver : MonoBehaviour
     {
         for (int i = 0; i < Const.maxIcicleTypePerBook; i++)
         {
-            // Debug.Log(Const.freezerIndex[data.freezerIndex][i]);
-            // int[] reqUnlockIndexes = icicleSO.icicles[Const.freezerIndex[data.freezerIndex][i]].requiredUnlock;
             int[] reqUnlockIndexes = Const.icicleSO_Array[Const.freezerNum].icicles[i].requiredUnlock;
             bool canUnlock_i = true;
 
             foreach (int reqIndex in reqUnlockIndexes)
             {
-                // if (!data.isUnlockedIcicles[data.freezerNum * Const.maxIcicleTypePerBook + Array.IndexOf(Const.freezerIndex[data.freezerNum], reqIndex)])
                 if (!data.isUnlockedIcicles[data.freezerNum * Const.maxIcicleTypePerBook + reqIndex])
                 {
                     canUnlock_i = false;
@@ -174,6 +171,7 @@ public class DataSaver : MonoBehaviour
         }
 
         Debug.Log($"canGatherIcicleIndex: {String.Join(",", canGatherIcicleIndex)}");
+        // Library.Print2DBoolArray
     }
 
     /// <summary>

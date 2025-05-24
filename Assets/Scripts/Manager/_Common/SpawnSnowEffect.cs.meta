@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 182efc82f3b4d478aac6a33085513f85
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - onTapSnowEffect: {instanceID: 0}
+  - onTapSnowPrefab: {fileID: 6188955631010034253, guid: f6a9b7d72a50f4113a16e38e890eea9d, type: 3}
+  - canvas: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

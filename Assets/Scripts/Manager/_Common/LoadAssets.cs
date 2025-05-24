@@ -15,7 +15,7 @@ public class LoadAssets : MonoBehaviour
 
     async void Start()
     {
-        Debug.Log($"Start: {Time.time}");
+        // Debug.Log($"Start: {Time.time}");
         image.color = Color.white;
 
         // NotFoundのSprite読み込み
@@ -33,8 +33,8 @@ public class LoadAssets : MonoBehaviour
         }
 
         // ロード完了後の処理
-        Debug.Log(Const.icicleSO_Array[0].icicles.Length);
-        Debug.Log($"Completed Load: {Time.time}");
+        // Debug.Log(Const.icicleSO_Array[0].icicles.Length);
+        // Debug.Log($"Completed Load: {Time.time}");
 
         loadCompletionSource.TrySetResult(true);
     }
