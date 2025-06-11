@@ -11,16 +11,17 @@ public class LoadAssets : MonoBehaviour
     private static UniTaskCompletionSource<bool> loadCompletionSource = new();
     public static UniTask WaitUntilLoadedAsync() => loadCompletionSource.Task;
 
-    [SerializeField] private Image image;
+    // [SerializeField] private Image image;
+    [SerializeField] private Sprite sprite_NotFound;
 
     async void Start()
     {
         // Debug.Log($"Start: {Time.time}");
-        image.color = Color.white;
+        // image.color = Color.white;
 
         // NotFoundのSprite読み込み
-        Sprite sprite = await Addressables.LoadAssetAsync<Sprite>("Assets/Images/Icicles/NotFound.png");
-        image.sprite = Instantiate(sprite);
+        sprite_NotFound = await Addressables.LoadAssetAsync<Sprite>("Assets/Images/Icicles/NotFound.png");
+        // image.sprite = Instantiate(sprite);
 
         Debug.Log($"SO_Length: {Const.icicleSO_Array.Length}");
 
@@ -32,10 +33,9 @@ public class LoadAssets : MonoBehaviour
             Const.icicleSO_Array[index] = Instantiate(so);
         }
 
-        // ロード完了後の処理
-        // Debug.Log(Const.icicleSO_Array[0].icicles.Length);
-        // Debug.Log($"Completed Load: {Time.time}");
-
+        // ロード完了後の処理、これがtrueになるとIcicleSOが利用可能となる
         loadCompletionSource.TrySetResult(true);
+        Debug.Log($"Completed Load: {Time.time}");
+        // Debug.Log(Const.icicleSO_Array[0].icicles.Length);
     }
 }

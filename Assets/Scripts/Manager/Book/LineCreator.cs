@@ -6,7 +6,7 @@ using UnityEngine;
 public class LineCreator : MonoBehaviour
 {
     // Lineを描画する親のcontent(ScrollView)
-    [SerializeField] private GameObject content;
+    [SerializeField] private RectTransform contentRect;
 
     // 図鑑の各cellの情報をCellCreatorから取得
     private int[] cellInfo = new int[4];
@@ -15,38 +15,47 @@ public class LineCreator : MonoBehaviour
     private int lineOffset = 10;
 
     // 
-    private Vector3[] positions = new Vector3[2];
+    private Vector2[] positions = new Vector2[2];
+
+    //
+    // private Vector3 midPos;
 
     void Start()
     {
-        // Debug.Log(String.Join(",", cellInfo));
-        // SetPos();
 
-        // LineRendererコンポーネントをゲームオブジェクトにアタッチする
-        LineRenderer lineRenderer = GetComponent<LineRenderer>();
-
-        // 点の数を指定する
-        lineRenderer.positionCount = positions.Length;
-
-        // 線を引く場所を指定する
-        lineRenderer.SetPositions(positions);
     }
 
+    /// <summary>
+    /// SOに入力した座標をもとにつらら図鑑のセルの位置を計算する
+    /// </summary>
     public void SetPos(Vector2Int start, Vector2Int end)
     {
-        // if (start.Length != 2 || end.Length != 2) return;
-
         // Debug.Log(String.Join(",", start));
         // Debug.Log(String.Join(",", end));
 
-        float content_H = transform.parent.GetComponent<RectTransform>().sizeDelta.y;
+        float content_H = contentRect.sizeDelta.y;
 
-        positions[0] = new Vector3(cellInfo[3] * (start.x - 1), content_H / 2 + lineOffset - (cellInfo[0] + cellInfo[2] + (cellInfo[0] + cellInfo[1]) * (start.y + 2)));
-        positions[1] = new Vector3(cellInfo[3] * (end.x - 1), content_H / 2 - lineOffset - (cellInfo[0] + cellInfo[1] + cellInfo[2] + (cellInfo[0] + cellInfo[1]) * (end.y + 1)));
+        float start_x = cellInfo[3] * (start.x - 1);
+        float start_y = content_H / 2 + lineOffset - (cellInfo[0] + cellInfo[2] + (cellInfo[0] + cellInfo[1]) * (start.y + 2));
+
+        float end_x = cellInfo[3] * (end.x - 1);
+        float end_y = content_H / 2 - lineOffset - (cellInfo[0] + cellInfo[1] + cellInfo[2] + (cellInfo[0] + cellInfo[1]) * (end.y + 1));
+
+        positions[0] = new Vector3(start_x, start_y);
+        positions[1] = new Vector3(end_x, end_y);
+
+        Vector2 midPos = (positions[0] + positions[1]) / 2;
+        this.transform.localPosition = midPos;
+
+        RectTransform lineRect = transform as RectTransform;
+        lineRect.sizeDelta = new Vector2(30, (positions[1] - positions[0]).magnitude);
 
         // Debug.Log($"{positions[0]}, {positions[1]}");
     }
 
+    /// <summary>
+    /// セルの位置を計算する上で必要なパラメータを渡す
+    /// </summary>
     public void SetCellInfo(int cellHeight, int lineHeight, int viewPadding, int cellWidth)
     {
         cellInfo[0] = cellHeight;

@@ -12,14 +12,14 @@ public class DataSaver : MonoBehaviour
     // json変換するデータのクラス
     [HideInInspector] public SaveData data;
 
+    // 冷凍庫番号、やっぱりConstにある方が使いやすいかも: 廃止
+    // public static int freezerNum = -1;
+
     // jsonファイルのパス
     string filepath;
 
     // jsonファイル名
     string fileName = "Datas/Data.json";
-
-    // icicleSO
-    // [SerializeField] private IcicleSO icicleSO;
 
     //--------------------------------------------------------------------------------
 
@@ -45,13 +45,18 @@ public class DataSaver : MonoBehaviour
         // ファイルを読み込んでdataに格納
         data = Load(filepath);
 
+        // freezerNumを初期化
+        Const.freezerNum = data.freezerNum;
+        // Debug.Log($"freezerNum: {Const.freezerNum} in Time: {Time.time}");
+
         // データを基に数値を初期化
         InitAppearance();
 
-        await LoadAssets.WaitUntilLoadedAsync();
-
         unlockedIcicles2D = Library.ConvertDimOneToTwo(data.isUnlockedIcicles, Const.maxfreezerCount, Const.maxIcicleTypePerBook);
         Library.Print2DBoolArray(unlockedIcicles2D, "解放済みのつららリスト");
+
+        // SOを使う場合はロードを待ってから
+        await LoadAssets.WaitUntilLoadedAsync();
 
         RefreshCanGather();
     }
@@ -101,7 +106,7 @@ public class DataSaver : MonoBehaviour
     //--------------------------------------------------------------------------------
     #region "Initialize"
 
-    // ゲームそのものを初期化する
+    // ゲームデータを初期化する
     public void InitializeGameData()
     {
         GetCoin(-TCoin);
@@ -147,7 +152,7 @@ public class DataSaver : MonoBehaviour
     private bool[,] unlockedIcicles2D = new bool[Const.maxfreezerCount, Const.maxIcicleTypePerBook];
 
     // 現在の冷凍庫で収穫可能なつららのIndexリスト
-    [SerializeField] private bool[] canGatherIcicleIndex = new bool[Const.maxIcicleTypePerBook];
+    [SerializeField] private bool[] canCollectIcicleIndex = new bool[Const.maxIcicleTypePerBook];
 
     /// <summary>
     /// 現在の冷凍庫で収穫可能なつららのIndexリストを更新する
@@ -167,10 +172,10 @@ public class DataSaver : MonoBehaviour
                     break;
                 }
             }
-            canGatherIcicleIndex[i] = canUnlock_i;
+            canCollectIcicleIndex[i] = canUnlock_i;
         }
 
-        Debug.Log($"canGatherIcicleIndex: {String.Join(",", canGatherIcicleIndex)}");
+        Debug.Log($"canGatherIcicleIndex: {String.Join(",", canCollectIcicleIndex)}");
         // Library.Print2DBoolArray
     }
 
@@ -194,6 +199,25 @@ public class DataSaver : MonoBehaviour
             Debug.Log($"freezerIndex: {freezerNum}, icicleIndex: {icicleIndex}のつららを解放しました");
             Save();
         }
+    }
+
+    /// <summary>
+    /// 収穫可能なつららのbool配列を入力すると、それぞれのつららを収穫できる確率のint配列を返す
+    /// </summary>
+    public int[] CanCollectIcicleProp()
+    {
+        // 不正な入力なら空の配列を返す
+        if (canCollectIcicleIndex.Length != Const.maxIcicleTypePerBook) return new int[0];
+
+        // 収穫可能なつららの確率列を格納
+        int[] canCollectPropList = new int[Const.maxIcicleTypePerBook];
+
+        for (int i = 0; i < Const.maxIcicleTypePerBook; i++)
+            if (canCollectIcicleIndex[i])
+                canCollectPropList[i] = 6 - Const.icicleSO_Array[Const.freezerNum].icicles[i].rareGrade;
+
+        Debug.Log($"Icicle prop list that you can collect: [{String.Join(",", canCollectPropList)}]");
+        return canCollectPropList.ToArray();
     }
 
     #endregion

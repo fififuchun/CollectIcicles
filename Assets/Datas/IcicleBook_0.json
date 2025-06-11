@@ -1,5 +1,5 @@
 {
-    "freezerIndex": 0,
+    "freezerNum": 0,
     "code": "NRM",
     "icicles": [
         {
@@ -7,7 +7,7 @@
             "index": 0,
             "id": 1,
             "iciclePoint": 1,
-            "rareGrade": 1,
+            "rareGrade": 6,
             "scale_x": 1.0,
             "scale_y": 1.0,
             "eyeId": 0,
@@ -15,7 +15,7 @@
             "book_x": 1,
             "book_y": -2,
             "image": {
-                "instanceID": 31380
+                "instanceID": 31494
             },
             "requiredUnlock": []
         },
@@ -24,7 +24,7 @@
             "index": 1,
             "id": 2,
             "iciclePoint": 3,
-            "rareGrade": 1,
+            "rareGrade": 6,
             "scale_x": 1.0,
             "scale_y": 1.0,
             "eyeId": 0,
@@ -32,7 +32,7 @@
             "book_x": 1,
             "book_y": -1,
             "image": {
-                "instanceID": 31382
+                "instanceID": 31496
             },
             "requiredUnlock": [
                 0
@@ -46,12 +46,12 @@
             "rareGrade": 1,
             "scale_x": 1.2999999523162842,
             "scale_y": 1.2999999523162842,
-            "eyeId": 0,
-            "eye_y": 0,
+            "eyeId": 1,
+            "eye_y": -60,
             "book_x": 0,
             "book_y": 0,
             "image": {
-                "instanceID": 31384
+                "instanceID": 31498
             },
             "requiredUnlock": [
                 1
@@ -65,12 +65,12 @@
             "rareGrade": 1,
             "scale_x": 1.5,
             "scale_y": 1.0,
-            "eyeId": 0,
-            "eye_y": 0,
+            "eyeId": 2,
+            "eye_y": -50,
             "book_x": 0,
             "book_y": 1,
             "image": {
-                "instanceID": 31386
+                "instanceID": 31500
             },
             "requiredUnlock": [
                 2
@@ -84,12 +84,12 @@
             "rareGrade": 1,
             "scale_x": 1.2000000476837159,
             "scale_y": 1.0,
-            "eyeId": 0,
-            "eye_y": 0,
+            "eyeId": 3,
+            "eye_y": -43,
             "book_x": 0,
             "book_y": 2,
             "image": {
-                "instanceID": 31388
+                "instanceID": 31502
             },
             "requiredUnlock": [
                 3
@@ -103,12 +103,12 @@
             "rareGrade": 1,
             "scale_x": 1.2000000476837159,
             "scale_y": 1.0,
-            "eyeId": 0,
-            "eye_y": 0,
+            "eyeId": 3,
+            "eye_y": -43,
             "book_x": 0,
             "book_y": 3,
             "image": {
-                "instanceID": 31390
+                "instanceID": 31504
             },
             "requiredUnlock": [
                 4
@@ -119,15 +119,15 @@
             "index": 6,
             "id": 7,
             "iciclePoint": 15,
-            "rareGrade": 1,
+            "rareGrade": 2,
             "scale_x": 1.0,
             "scale_y": 1.0,
-            "eyeId": 0,
-            "eye_y": 0,
+            "eyeId": 4,
+            "eye_y": -40,
             "book_x": 1,
             "book_y": 3,
             "image": {
-                "instanceID": 31392
+                "instanceID": 31506
             },
             "requiredUnlock": [
                 1
@@ -138,15 +138,15 @@
             "index": 7,
             "id": 8,
             "iciclePoint": 13,
-            "rareGrade": 1,
+            "rareGrade": 2,
             "scale_x": 1.0,
             "scale_y": 1.0,
             "eyeId": 0,
-            "eye_y": 0,
+            "eye_y": -50,
             "book_x": 2,
             "book_y": 3,
             "image": {
-                "instanceID": 31394
+                "instanceID": 30760
             },
             "requiredUnlock": [
                 1
@@ -161,11 +161,11 @@
             "scale_x": 1.0,
             "scale_y": 1.0,
             "eyeId": 0,
-            "eye_y": 0,
+            "eye_y": -40,
             "book_x": 0,
             "book_y": 4,
             "image": {
-                "instanceID": 31396
+                "instanceID": 31508
             },
             "requiredUnlock": [
                 5,
@@ -181,7 +181,7 @@
             "scale_x": 1.0,
             "scale_y": 1.0,
             "eyeId": 0,
-            "eye_y": 0,
+            "eye_y": -50,
             "book_x": 1,
             "book_y": 4,
             "image": {
@@ -200,11 +200,11 @@
             "scale_x": 1.0,
             "scale_y": 1.0,
             "eyeId": 0,
-            "eye_y": 0,
+            "eye_y": -50,
             "book_x": 2,
             "book_y": 4,
             "image": {
-                "instanceID": 31398
+                "instanceID": 31510
             },
             "requiredUnlock": [
                 7
@@ -223,7 +223,7 @@
             "book_x": 0,
             "book_y": 5,
             "image": {
-                "instanceID": 31400
+                "instanceID": 31512
             },
             "requiredUnlock": [
                 8,
@@ -243,7 +243,7 @@
             "book_x": 1,
             "book_y": 5,
             "image": {
-                "instanceID": 31402
+                "instanceID": 31514
             },
             "requiredUnlock": [
                 9
@@ -262,7 +262,7 @@
             "book_x": 2,
             "book_y": 5,
             "image": {
-                "instanceID": 31404
+                "instanceID": 31516
             },
             "requiredUnlock": [
                 10

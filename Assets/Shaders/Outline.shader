@@ -3,216 +3,89 @@ Shader "Unlit/Outline"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _OutlineColor ("Outline Color", Color) = (1,1,1,1)
-        _OutlineWidth ("Outline Width", Range(0, 4)) = 1
-
-        _FillColor ("Fill Color", Color) = (1,1,1,1)
-
+        _Color ("Color", Color) = (0, 0, 0, 1)
+        _OutlineColor ("Outline Color", Color) = (1, 1, 1, 1)
+        _OutlineSize ("Outline Size", Range(0,0.1)) = 0.003
     }
+
     SubShader
     {
-        Tags { "Queue"="Transparent" "RenderType"="Transparent" }
+        Tags
+        {
+            "RenderType"="Opaque"
+        }
         LOD 100
-        ZWrite Off
-        Blend OneMinusDstAlpha DstAlpha
-        ColorMask RGB
- 
+
         CGINCLUDE
+        float _OutlineSize;
+        float4 _OutlineColor;
+        float4 _Color;
         #include "UnityCG.cginc"
- 
-        sampler2D _MainTex;
-        float4 _MainTex_ST;
- 
-        fixed4 _OutlineColor;
-        float _OutlineWidth;
+        
+        struct appdata
+        {
+            float4 vertex : POSITION;
+            float3 normal : NORMAL;
+        };
 
-        fixed4 _FillColor;
-
-        struct v2fOutline
+        struct v2f
         {
             float4 pos : SV_POSITION;
-            float2 uv : TEXCOORD0;
+            float3 normal : TEXCOORD1;
         };
- 
-        v2fOutline vertOutline (appdata_base v, float2 offset)
-        {
-            v2fOutline o;
-            o.pos = UnityObjectToClipPos(v.vertex);
-            o.pos.xy += offset * 2 * o.pos.w * _OutlineWidth / _ScreenParams.xy;
-            o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-            return o;
-        }
- 
-        fixed4 fragOutlineMask (v2fOutline i) : SV_Target
-        {
-            fixed alpha = tex2D(_MainTex, i.uv).a;
-            fixed4 col = _OutlineColor;
-            col.a *= alpha;
-            return 1 - col.a;
-        }
- 
-        fixed4 fragOutline (v2fOutline i) : SV_Target
-        {
-            fixed alpha = tex2D(_MainTex, i.uv).a;
-            fixed4 col = _OutlineColor;
-            col.a *= alpha;
-            return col;
-        }
         ENDCG
- 
+
         Pass
         {
-            Name "OUTLINEALPHA"
-            BlendOp Min
-            ColorMask A
- 
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment fragOutlineMask
- 
-            v2fOutline vert (appdata_base v)
-            {
-                return vertOutline(v, float2( 1, 1));
-            }
-            ENDCG
-        }
- 
-        Pass
-        {
-            Name "OUTLINEALPHA"
-            BlendOp Min
-            ColorMask A
- 
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment fragOutlineMask
- 
-            v2fOutline vert (appdata_base v)
-            {
-                return vertOutline(v, float2(-1, 1));
-            }
-            ENDCG
-        }
- 
-        Pass
-        {
-            Name "OUTLINEALPHA"
-            BlendOp Min
-            ColorMask A
- 
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment fragOutlineMask
- 
-            v2fOutline vert (appdata_base v)
-            {
-                return vertOutline(v, float2( 1,-1));
-            }
-            ENDCG
-        }
- 
-        Pass
-        {
-            Name "OUTLINEALPHA"
-            BlendOp Min
-            ColorMask A
- 
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment fragOutlineMask
- 
-            v2fOutline vert (appdata_base v)
-            {
-                return vertOutline(v, float2(-1,-1));
-            }
-            ENDCG
-        }
- 
-        Pass
-        {
-            Name "CENTERMASK"
-            ColorMask A
-            Blend Zero One, One OneMinusSrcAlpha
- 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
- 
-            #include "UnityCG.cginc"
- 
-            struct v2f
-            {
-                float4 pos : SV_POSITION;
-                float2 uv : TEXCOORD0;
-            };
- 
-            v2f vert (appdata_full v)
+
+            v2f vert(appdata v)
             {
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+                o.normal = UnityObjectToWorldNormal(v.normal);
                 return o;
             }
- 
-            fixed4 frag (v2f i) : SV_Target
+
+            fixed4 frag(v2f i) : SV_Target
             {
-                return tex2D(_MainTex, i.uv);
+                float3 L = _WorldSpaceLightPos0.xyz;
+                return dot(i.normal, L) * _Color;
             }
             ENDCG
         }
- 
+
         Pass
         {
-            Name "OUTLINECOLOR"
+            Cull Front
+
             CGPROGRAM
             #pragma vertex vert
-            #pragma fragment fragOutline
- 
-            v2fOutline vert (appdata_base v)
+            #pragma fragment frag
+            v2f vert(appdata v)
             {
-                return vertOutline(v, float2( 1, 1));
+                v2f o;
+
+                // MVP座標変換
+                o.pos = UnityObjectToClipPos(v.vertex);
+
+                // 法線の座標変換 : モデル空間 -> カメラ空間
+                float3 norm = mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal);
+
+                // 投影
+                float2 offset = TransformViewToProjection(norm.xy);
+
+                // クリップ空間で頂点を動かす
+                o.pos.xy += offset * o.pos.w * _OutlineSize;
+
+                return o;
             }
-            ENDCG
-        }
- 
-        Pass
-        {
-            Name "OUTLINECOLOR"
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment fragOutline
- 
-            v2fOutline vert (appdata_base v)
+
+            fixed4 frag(v2f i) : SV_Target
             {
-                return vertOutline(v, float2(-1, 1));
-            }
-            ENDCG
-        }
- 
-        Pass
-        {
-            Name "OUTLINECOLOR"
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment fragOutline
- 
-            v2fOutline vert (appdata_base v)
-            {
-                return vertOutline(v, float2( 1,-1));
-            }
-            ENDCG
-        }
- 
-        Pass
-        {
-            Name "OUTLINECOLOR"
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment fragOutline
- 
-            v2fOutline vert (appdata_base v)
-            {
-                return vertOutline(v, float2(-1,-1));
+                return _OutlineColor;
             }
             ENDCG
         }

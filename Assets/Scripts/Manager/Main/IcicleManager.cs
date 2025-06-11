@@ -34,9 +34,12 @@ public class IcicleManager : MonoBehaviour
     {
         // freezerNum = dataSaver.data.freezerNum;
         Debug.Log($"現在使用中のfreezerIndexは: {Const.freezerNum}");
+
+        // これはStart時点でSOを読み込んでいないため、呼び出せない
+        // Debug.Log($"{Const.icicleSO_Array[Const.freezerNum].icicles[2].icicleName}");
         // GrowIcicle();
 
-        // ConfirmProp(new int[3] { 1, 3, 6 });
+        // ConfirmProp(new int[5] { 0, 1, 3, 6, 0 });
     }
 
     void Update()
@@ -116,11 +119,25 @@ public class IcicleManager : MonoBehaviour
             case 3:
                 if (UnityEngine.Random.Range(0, 2) == 0) // レアつらら生成時の処理
                 {
-                    int rareIndex = 6;
+                    // int rareIndex = 6;
+                    int rareIndex = ChooseRareIcicle(dataSaver.CanCollectIcicleProp());
+                    Debug.Log($"rareIndex: {rareIndex}");
+                    if (rareIndex < 0) // 初期状態: rareIndex = -1 なら返す
+                    {
+                        icicles[growPoint].GenerateIcicle(1);
+                        return;
+                    }
+
                     icicles[growPoint].eyeObj = eyeObjects[Const.icicleSO_Array[Const.freezerNum].icicles[rareIndex].eyeId];
                     icicles[growPoint].GenerateIcicle(rareIndex);
+
+                    Debug.Log($"Grow Icicle: {rareIndex} in {icicles[growPoint].point}");
                 }
-                else icicles[growPoint].GenerateIcicle(1);
+                else
+                {
+                    icicles[growPoint].GenerateIcicle(1);
+                    Debug.Log($"Grow Icicle: {1} in {icicles[growPoint].point}");
+                }
 
                 break;
             default:
@@ -141,7 +158,7 @@ public class IcicleManager : MonoBehaviour
     public int ChooseRareIcicle(int[] rareGradeArray)
     {
         // 不正な入力なら-1を返す
-        if (rareGradeArray.Length < 1) return -1;
+        if (rareGradeArray.Length != Const.maxIcicleTypePerBook) return -2;
 
         int sum = rareGradeArray.Sum();
         int randomNum = UnityEngine.Random.Range(0, sum);
@@ -156,16 +173,16 @@ public class IcicleManager : MonoBehaviour
     }
 
     // Propが本当か確かめる
-    // public void ConfirmProp(int[] array)
-    // {
-    //     int[] propArray = new int[array.Length];
+    public void ConfirmProp(int[] array)
+    {
+        int[] propArray = new int[array.Length];
 
-    //     for (int i = 0; i < 10000; i++)
-    //     {
-    //         int prop = ChooseRareIcicle(array);
-    //         propArray[prop]++;
-    //     }
+        for (int i = 0; i < 10000; i++)
+        {
+            int prop = ChooseRareIcicle(array);
+            propArray[prop]++;
+        }
 
-    //     Debug.Log(String.Join(",", propArray));
-    // }
+        Debug.Log(String.Join(",", propArray));
+    }
 }

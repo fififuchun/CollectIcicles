@@ -1,8 +1,8 @@
 {
-    "t_coin": 4,
+    "t_coin": 273,
     "freezerNum": 0,
     "isUnlockedIcicles": [
-        true,
+        false,
         true,
         false,
         false,
